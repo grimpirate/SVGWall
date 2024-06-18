@@ -9,3 +9,11 @@ SVG Wallpaper Utility for Xorg
       -V, --version    Print version information and exit.
 
 ![Screenshot](https://raw.githubusercontent.com/grimpirate/SVGWall/main/screenshot.png "SVGWall")
+
+### Compile & Package from source
+Requires a JDK
+
+    git clone https://github.com/grimpirate/SVGWall
+    cd SVGWall
+    chmod 0755 make
+    ./make
