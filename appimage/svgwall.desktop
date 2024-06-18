@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=SVGWall
+Exec=AppRun -s %f
+Icon=svgwall
+Type=Application
+Categories=Utility;
+Terminal=true
+MimeType=image/svg+xml
+Comment=SVG Wallpaper Utility for Xorg
+X-AppImage-Name=SVGWall
+X-AppImage-Version=20240618.1
+X-AppImage-Arch=x86_64
