@@ -16,7 +16,7 @@ mkdir -p "$USR/share/icons/hicolor/256x256/apps"
 mkdir -p "$USR/share/icons/hicolor/scalable/apps"
 
 # Needed lib(s)
-wget https://dlcdn.apache.org/xmlgraphics/batik/binaries/batik-bin-1.17.tar.gz -P "$DIR/assets"
+wget https://archive.apache.org/dist/xmlgraphics/batik/binaries/batik-bin-1.17.tar.gz -P "$DIR/assets"
 tar -xzf "$DIR/assets/batik-bin-1.17.tar.gz" -C "$DIR/assets"
 mv "$BATIK/batik-anim-1.17.jar" "$USR/lib"
 mv "$BATIK/batik-awt-util-1.17.jar" "$USR/lib"
