@@ -37,6 +37,11 @@
 		<internet>always</internet>
 	</supports>
 	<releases>
+		<release version="20240619.1" date="2024-06-19">
+			<description>
+				<p>Repackaged</p>
+			</description>
+		</release>
 		<release version="20240618.1" date="2024-06-18">
 			<description>
 				<ul>
