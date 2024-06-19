@@ -15,5 +15,5 @@ Requires a JDK
 
     git clone https://github.com/grimpirate/SVGWall
     cd SVGWall
-    chmod 0755 make
-    ./make
+    chmod 0755 build.sh
+    ./build.sh
