@@ -68,7 +68,7 @@ chmod 0755 "$APPIMAGE/appimagetool-x86_64.AppImage"
 "$APPIMAGE/appimagetool-x86_64.AppImage" "$APPDIR" -u "gh-releases-zsync|grimpirate|SVGWall|latest|SVGWall-*x86_64.AppImage.zsync"
 
 # Cleanup
-rm -rf "$APPDIR" "$APPIMAGE" "$JNIX11" "$SRC" screenshot.png README.md LICENSE make
+rm -rf "$APPDIR" "$APPIMAGE" "$JNIX11" "$SRC" screenshot.png README.md LICENSE build.sh
 
 # Test SVGs
 # https://gist.githubusercontent.com/vschmidt94/7ae2c23fede9f53bf63da4d7ace5fc14/raw/e41ed2bd565a54e90b33209dc820086e93121ab5/retro_gruvbox_linux_wallpaper.svg
