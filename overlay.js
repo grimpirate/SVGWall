@@ -1,7 +1,4 @@
 importPackage(Packages.com.grimpirate);
-importPackage(java.lang);
-importPackage(java.time);
-importPackage(java.time.format);
 
 const MARGIN = 10;
 [
@@ -12,17 +9,17 @@ const MARGIN = 10;
 	{
 		x: MARGIN,
 		y: 0,
-		t: `${s('java.runtime.name')} ${s('java.runtime.version')}`,
+		t: SVGWall.jvm,
 		a: Anchor.LEFT
 	},{
 		x: MARGIN,
 		y: -18,
-		t: s('os.version'),
+		t: SVGWall.os_ver,
 		a: Anchor.LEFT
 	},{
 		x: MARGIN,
 		y: - 2 * 18,
-		t: `${s('os.name')} ${s('os.arch')}`,
+		t: SVGWall.os_arch,
 		a: Anchor.LEFT
 	},{
 		x: SVGWall.width * 0.5,
@@ -32,7 +29,7 @@ const MARGIN = 10;
 	},{
 		x: SVGWall.width - MARGIN,
 		y: 0,
-		t: t(),
+		t: SVGWall.time,
 		a: Anchor.RIGHT
 	},{
 		x: SVGWall.width - MARGIN,
@@ -46,13 +43,3 @@ const MARGIN = 10;
 	//////////////////////////////
 ]
 .map(a => 'a' in a ? new CoordinateText(a.x, SVGWall.height - MARGIN + a.y, a.t, a.a) : new CoordinateText(SVGWall.height - MARGIN + a.x, a.y, a.t));
-
-function s(p)
-{
-	return System.getProperty(p);
-}
-
-function t()
-{
-	return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-}

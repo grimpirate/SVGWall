@@ -5,20 +5,12 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 import org.apache.batik.transcoder.TranscoderException;
-import org.mozilla.javascript.Context;
-import org.mozilla.javascript.ImporterTopLevel;
-import org.mozilla.javascript.NativeArray;
-import org.mozilla.javascript.Scriptable;
-import org.mozilla.javascript.ScriptableObject;
 
 public class Painter
 {
@@ -28,10 +20,9 @@ public class Painter
 	public static final Color COLOR = Color.WHITE;
 	public static final float MARGIN = 10f;
 
-	public Painter(String svg)
+	public Painter(String svg, Dimension dimension, CoordinateText[] texts)
 	{
 		boolean rainbow = false;
-		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 		try
 		{
 			this.image = new BufferedImageTranscoder(svg, (float)dimension.getWidth(), (float)dimension.getHeight()).getBufferedImage();
@@ -43,6 +34,8 @@ public class Painter
 		}
 
 		g2d = image.createGraphics();
+		g2d.setColor(Color.BLACK);
+		g2d.drawRect(0, 0, dimension.width, dimension.height);
 		g2d.setColor(COLOR);
 		g2d.setFont(FONT);
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -50,6 +43,8 @@ public class Painter
 
 		if(rainbow)
 			drawRainbow();
+		
+		drawOverlay(texts);
 	}
 
 	public void drawRainbow()
@@ -82,16 +77,12 @@ public class Painter
 	{
 		ByteBuffer buffer  = ByteBuffer.allocate(image.getWidth() * image.getHeight() * 4);
 		Arrays.stream(((DataBufferInt) image.getData().getDataBuffer()).getData())
-			.forEach(i -> buffer.putInt(Integer.reverseBytes(i)));
+		.forEach(i -> buffer.putInt(Integer.reverseBytes(i)));
 		return buffer.array();
 	}
-	
-	public void drawOverlay(String js, String version) throws FileNotFoundException, IOException
+
+	private void drawOverlay(CoordinateText[] texts)
 	{
-		Context context = Context.enter();
-		Scriptable scope = createScriptable(context, version);
-		CoordinateText[] texts = Arrays.stream(((NativeArray) context.evaluateReader(scope, new java.io.FileReader(js), "<cmd>", 1, null)).toArray()).toArray(CoordinateText[]::new);
-		
 		for(CoordinateText text : texts)
 		{
 			float width = (float)FONT.getStringBounds(text.getText(), g2d.getFontRenderContext()).getWidth();
@@ -108,17 +99,5 @@ public class Painter
 				break;
 			}
 		}
-	}
-	
-	private Scriptable createScriptable(Context context, String version)
-	{
-		Scriptable scope = new ImporterTopLevel(context);
-		ScriptableObject host = (ScriptableObject) ScriptableObject.getObjectPrototype(scope);
-		ScriptableObject.putConstProperty(host, "version", Context.javaToJS(version, scope));
-		ScriptableObject.putConstProperty(host, "width", Context.javaToJS(image.getWidth(), scope));
-		ScriptableObject.putConstProperty(host, "height", Context.javaToJS(image.getHeight(), scope));
-		ScriptableObject.putConstProperty(scope, "SVGWall", Context.javaToJS(host, scope));
-		
-		return scope;
 	}
 }

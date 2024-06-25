@@ -1,5 +1,7 @@
 package com.grimpirate;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -25,12 +27,13 @@ public class SVGWall {
 		ParseResult result = (new Shell(args)).getParseResult();
 
 		String svg = result.matchedOptionValue("--svg", "");
-		String js = result.matchedOptionValue("--overlay", null);
+		String js = result.matchedOptionValue("--overlay", "");
+		
+		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+		
+		JavaScript script = new JavaScript(js, result.commandSpec().version()[0], dimension);
 
-		Painter painter = new Painter(svg);
-
-		if(null != js)
-			painter.drawOverlay(js, result.commandSpec().version()[0]);
+		Painter painter = new Painter(svg, dimension, script.getText());
 
 		apply(painter.getImageData());
 	}
