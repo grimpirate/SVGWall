@@ -1,8 +1,6 @@
 package com.grimpirate;
 
 import java.awt.Dimension;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -16,8 +14,8 @@ import org.mozilla.javascript.ScriptableObject;
 public class JavaScript
 {
 	private CoordinateText[] texts;
-	
-	public JavaScript(String js, String version, Dimension dimension) throws FileNotFoundException, IOException
+
+	public JavaScript(String js, String version, Dimension dimension)
 	{
 		Context context = Context.enter();
 		Scriptable scope = new ImporterTopLevel(context);
@@ -30,11 +28,17 @@ public class JavaScript
 		ScriptableObject.putConstProperty(host, "os_arch", Context.javaToJS(System.getProperty("os.name") + " " + System.getProperty("os.arch"), scope));
 		ScriptableObject.putConstProperty(host, "time", Context.javaToJS(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), scope));
 		ScriptableObject.putConstProperty(scope, "SVGWall", Context.javaToJS(host, scope));
-		CoordinateText[] texts = Arrays.stream(((NativeArray) context.evaluateReader(scope, new java.io.FileReader(js), "<cmd>", 1, null)).toArray()).toArray(CoordinateText[]::new);
-		Context.exit();
-		this.texts = texts;
+		try
+		{
+			texts = Arrays.stream(((NativeArray) context.evaluateReader(scope, new java.io.FileReader(js), "<cmd>", 1, null)).toArray()).toArray(CoordinateText[]::new);
+		}
+		catch (Exception e)
+		{
+			Context.exit();
+			texts = new CoordinateText[] {};
+		}
 	}
-	
+
 	public CoordinateText[] getText()
 	{
 		return texts;

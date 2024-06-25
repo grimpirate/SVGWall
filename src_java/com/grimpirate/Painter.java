@@ -22,28 +22,26 @@ public class Painter
 
 	public Painter(String svg, Dimension dimension, CoordinateText[] texts)
 	{
-		boolean rainbow = false;
+		this.image = new BufferedImage(dimension.width, dimension.height, BufferedImage.TYPE_INT_ARGB);
+
 		try
 		{
 			this.image = new BufferedImageTranscoder(svg, (float)dimension.getWidth(), (float)dimension.getHeight()).getBufferedImage();
+			g2d = image.createGraphics();
+			g2d.setColor(Color.BLACK);
+			g2d.drawRect(0, 0, dimension.width, dimension.height);
 		}
 		catch (TranscoderException e)
 		{
-			this.image = new BufferedImage(dimension.width, dimension.height, BufferedImage.TYPE_INT_ARGB);
-			rainbow = true;
+			g2d = image.createGraphics();
+			drawRainbow();
 		}
 
-		g2d = image.createGraphics();
-		g2d.setColor(Color.BLACK);
-		g2d.drawRect(0, 0, dimension.width, dimension.height);
-		g2d.setColor(COLOR);
-		g2d.setFont(FONT);
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		g2d.setColor(COLOR);
+		g2d.setFont(FONT);
 
-		if(rainbow)
-			drawRainbow();
-		
 		drawOverlay(texts);
 	}
 
