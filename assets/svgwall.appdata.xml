@@ -30,13 +30,19 @@
 	<requires>
 		<id version="1.17" compare="ge">Apache Batik</id>
 		<id version="4.7.6">picocli</id>
-		<id version="22" compare="ge">OpenJDK</id>
-		<id version="1.8.9.1" compare="ge">libX11</id>
+		<id version="1.7.15">Mozilla Rhino</id>
+		<id version="22">OpenJDK</id>
+		<id version="1.8.9.1">libX11</id>
 	</requires>
 	<supports>
 		<internet>always</internet>
 	</supports>
 	<releases>
+		<release version="20240624.1" date="2024-06-24">
+			<description>
+				<p>Mozilla Rhino included for text overlay scripting</p>
+			</description>
+		</release>
 		<release version="20240619.1" date="2024-06-19">
 			<description>
 				<p>Repackaged</p>

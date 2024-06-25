@@ -118,6 +118,12 @@ public class Shell
 				.type(String.class)
 				.description("SVG file")
 				.build());
+		spec.addOption(OptionSpec.builder("-o", "--overlay")
+				.required(false)
+				.paramLabel("FILE")
+				.type(String.class)
+				.description("Text overlay JavaScript file")
+				.build());
 		spec.addOption(OptionSpec.builder("-u", "--update")
 				.required(false)
 				.type(Boolean.class)
