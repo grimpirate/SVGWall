@@ -112,17 +112,11 @@ public class Shell
 				.type(File.class)
 				.description("AppStream metadata XML file")
 				.build());
-		spec.addOption(OptionSpec.builder("-s", "--svg")
-				.required(false)
+		spec.addOption(OptionSpec.builder("-j", "--javascript")
+				.required(true)
 				.paramLabel("FILE")
 				.type(String.class)
-				.description("SVG file")
-				.build());
-		spec.addOption(OptionSpec.builder("-o", "--overlay")
-				.required(false)
-				.paramLabel("FILE")
-				.type(String.class)
-				.description("Text overlay JavaScript file")
+				.description("SVG generator JavaScript file")
 				.build());
 		spec.addOption(OptionSpec.builder("-u", "--update")
 				.required(false)

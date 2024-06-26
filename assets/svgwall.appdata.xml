@@ -38,6 +38,11 @@
 		<internet>always</internet>
 	</supports>
 	<releases>
+		<release version="20240626.1" date="2024-06-26">
+			<description>
+				<p>SVG display using javascript</p>
+			</description>
+		</release>
 		<release version="20240625.1" date="2024-06-25">
 			<description>
 				<p>JavaScipt code refactor</p>

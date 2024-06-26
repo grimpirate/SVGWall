@@ -1,25 +1,29 @@
 package com.grimpirate;
 
 import java.awt.Dimension;
+import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 
+import org.apache.batik.anim.dom.SVGDOMImplementation;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ImporterTopLevel;
-import org.mozilla.javascript.NativeArray;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 public class JavaScript
 {
-	private CoordinateText[] texts;
+	private Document document;
 
-	public JavaScript(String js, String version, Dimension dimension)
+	public JavaScript(String js, String version, Dimension dimension) throws IllegalAccessException, InstantiationException, InvocationTargetException
 	{
 		Context context = Context.enter();
+		context.setLanguageVersion(Context.VERSION_ES6);
 		Scriptable scope = new ImporterTopLevel(context);
-		ScriptableObject host = (ScriptableObject) ScriptableObject.getObjectPrototype(scope);
+		ScriptableObject.defineClass(scope, SVG.class);
+		ScriptableObject host = context.initSafeStandardObjects();
 		ScriptableObject.putConstProperty(host, "version", Context.javaToJS(version, scope));
 		ScriptableObject.putConstProperty(host, "width", Context.javaToJS(dimension.getWidth(), scope));
 		ScriptableObject.putConstProperty(host, "height", Context.javaToJS(dimension.getHeight(), scope));
@@ -27,20 +31,24 @@ public class JavaScript
 		ScriptableObject.putConstProperty(host, "os_ver", Context.javaToJS(System.getProperty("os.version"), scope));
 		ScriptableObject.putConstProperty(host, "os_arch", Context.javaToJS(System.getProperty("os.name") + " " + System.getProperty("os.arch"), scope));
 		ScriptableObject.putConstProperty(host, "time", Context.javaToJS(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), scope));
-		ScriptableObject.putConstProperty(scope, "SVGWall", Context.javaToJS(host, scope));
+		ScriptableObject.putConstProperty(scope, "Platform", Context.javaToJS(host, scope));
 		try
 		{
-			texts = Arrays.stream(((NativeArray) context.evaluateReader(scope, new java.io.FileReader(js), "<cmd>", 1, null)).toArray()).toArray(CoordinateText[]::new);
+			context.evaluateReader(scope, new java.io.FileReader(js), js, 1, null);
+			Element element = (Element) Context.jsToJava(scope.get("svg", scope), Element.class);
+			document = element.getOwnerDocument();
+			//texts = Arrays.stream(((NativeArray) context.evaluateReader(scope, new java.io.FileReader(js), "<cmd>", 1, null)).toArray()).toArray(CoordinateText[]::new);
 		}
 		catch (Exception e)
 		{
+			e.printStackTrace();
 			Context.exit();
-			texts = new CoordinateText[] {};
+			document = SVGDOMImplementation.getDOMImplementation().createDocument(SVGDOMImplementation.SVG_NAMESPACE_URI, "svg", null);
 		}
 	}
 
-	public CoordinateText[] getText()
+	public Document getDocument()
 	{
-		return texts;
+		return document;
 	}
 }

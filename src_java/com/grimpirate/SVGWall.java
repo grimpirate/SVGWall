@@ -3,9 +3,11 @@ package com.grimpirate;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.batik.transcoder.TranscoderException;
 import org.xml.sax.SAXException;
 
 import picocli.CommandLine.ParseResult;
@@ -22,19 +24,18 @@ public class SVGWall {
 
 	private static native void apply(byte[] data);
 
-	public static void main(String... args) throws PicocliException, SAXException, IOException, ParserConfigurationException, InterruptedException
+	public static void main(String... args) throws PicocliException, SAXException, IOException, ParserConfigurationException, InterruptedException, TranscoderException, IllegalAccessException, InstantiationException, InvocationTargetException
 	{
 		ParseResult result = (new Shell(args)).getParseResult();
 
-		String svg = result.matchedOptionValue("--svg", "");
-		String js = result.matchedOptionValue("--overlay", "");
+		String js = result.matchedOptionValue("--javascript", "");
 		
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 		
 		JavaScript script = new JavaScript(js, result.commandSpec().version()[0], dimension);
 
-		Painter painter = new Painter(svg, dimension, script.getText());
+		BufferedImageTranscoder transcoder = new BufferedImageTranscoder(script.getDocument(), dimension.width, dimension.height);
 
-		apply(painter.getImageData());
+		apply(transcoder.getImageData());
 	}
 }

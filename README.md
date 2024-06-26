@@ -1,13 +1,13 @@
 # SVGWall
 SVG Wallpaper Utility for Xorg
 
-    Usage: SVGWall-x86_64.AppImage [-chuV] [-o=FILE] [-s=FILE]
-      -c, --check          Check for SVGWall-x86_64.AppImage update(s) and exit.
-      -h, --help           Show this help message and exit.
-      -o, --overlay=FILE   Text overlay JavaScript file
-      -s, --svg=FILE       SVG file
-      -u, --update         Update SVGWall-x86_64.AppImage and exit.
-      -V, --version        Print version information and exit.
+    Usage: SVGWall-x86_64.AppImage [-chuV] -j=FILE
+      -c, --check             Check for SVGWall-x86_64.AppImage update(s) and exit.
+      -h, --help              Show this help message and exit.
+      -j, --javascript=FILE   SVG generator JavaScript file
+      -u, --update            Update SVGWall-x86_64.AppImage and exit.
+      -V, --version           Print version information and exit.
+
 
 ![Screenshot](https://raw.githubusercontent.com/grimpirate/SVGWall/main/screenshot.png "SVGWall")
 
