@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=SVGWall
-Exec=AppRun -s %f
+Exec=AppRun -j %f
 Icon=svgwall
 Type=Application
 Categories=Utility;
