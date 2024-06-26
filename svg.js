@@ -1,6 +1,5 @@
 const MARGIN = 3;
 const LINESPACE = 5;
-fetch('https://api.quotable.io/quotes/random')
 const svg = SVG.load('https://gist.githubusercontent.com/vschmidt94/7ae2c23fede9f53bf63da4d7ace5fc14/raw/e41ed2bd565a54e90b33209dc820086e93121ab5/retro_gruvbox_linux_wallpaper.svg');
 svg.appendChild(SVG.element('style', null, `
 text
