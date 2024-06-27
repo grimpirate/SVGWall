@@ -7,7 +7,7 @@ ASSETS="$DIR/assets"
 BATIK="$ASSETS/batik-1.17/lib"
 APPDIR="$DIR/svgwall.AppDir"
 USR="$APPDIR/usr"
-LIB=(
+LIBS=(
 	"rhino-1.7.15"
 	"picocli-4.7.6"
 	"xmlgraphics-commons-2.9"
