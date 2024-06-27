@@ -38,6 +38,4 @@ exec "$DIR/jre/bin/svgwall" \
 	-classpath "$DIR$CLASSPATH" \
 	com.grimpirate.SVGWall \
 	-m "$DIR/../share/metainfo/svgwall.appdata.xml" \
-	"$@" &
-disown
-exit 0
+	"$@"
