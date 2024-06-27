@@ -28,7 +28,7 @@ for JAR in ${LIBS[@]}; do
 	CLASSPATH+=":$DIR/../lib/$JAR.jar"
 done
 
-exec "$DIR/jre/bin/java" \
+exec "$DIR/jre/bin/svgwall" \
 	-Dawt.useSystemAAFontSettings=on \
 	-Dswing.aatext=true \
 	-Dfile.encoding=UTF-8 \
@@ -38,4 +38,6 @@ exec "$DIR/jre/bin/java" \
 	-classpath "$DIR$CLASSPATH" \
 	com.grimpirate.SVGWall \
 	-m "$DIR/../share/metainfo/svgwall.appdata.xml" \
-	"$@"
+	"$@" &
+disown
+exit 0

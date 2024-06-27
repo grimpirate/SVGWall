@@ -75,7 +75,8 @@ jlink \
 	--compress=zip-9 \
 	--add-modules java.desktop,jdk.xml.dom \
 	--output "$USR/bin/jre"
-rm -rf "$USR/bin/jre/legal" "$USR/bin/jre/release" "$USR-bin/jre/bin/keytool"
+rm -rf "$USR/bin/jre/legal" "$USR/bin/jre/release" "$USR/bin/jre/bin/keytool"
+mv "$USR/bin/jre/bin/java" "$USR/bin/jre/bin/svgwall"
 
 # Finalize AppDir
 mv "$ASSETS/AppRun" "$USR/bin"
