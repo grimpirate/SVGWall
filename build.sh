@@ -7,6 +7,28 @@ ASSETS="$DIR/assets"
 BATIK="$ASSETS/batik-1.17/lib"
 APPDIR="$DIR/svgwall.AppDir"
 USR="$APPDIR/usr"
+LIB=(
+	"rhino-1.7.15"
+	"picocli-4.7.6"
+	"xmlgraphics-commons-2.9"
+	"batik-anim-1.17"
+	"batik-bridge-1.17"
+	"batik-css-1.17"
+	"batik-dom-1.17"
+	"batik-gvt-1.17"
+	"batik-transcoder-1.17"
+	"batik-util-1.17"
+	"batik-i18n-1.17"
+	"batik-svg-dom-1.17"
+	"batik-constants-1.17"
+	"batik-ext-1.17"
+	"batik-xml-1.17"
+	"batik-parser-1.17"
+	"batik-script-1.17"
+	"batik-awt-util-1.17"
+	"xml-apis-ext-1.3.04"
+)
+CLASSPATH=""
 
 # AppDir structure
 mkdir -p "$USR/lib"
@@ -18,35 +40,41 @@ mkdir -p "$USR/share/icons/hicolor/scalable/apps"
 # Needed lib(s)
 wget https://archive.apache.org/dist/xmlgraphics/batik/binaries/batik-bin-1.17.tar.gz -P "$DIR/assets"
 tar -xzf "$DIR/assets/batik-bin-1.17.tar.gz" -C "$DIR/assets"
-mv "$BATIK/batik-anim-1.17.jar" "$USR/lib"
-mv "$BATIK/batik-awt-util-1.17.jar" "$USR/lib"
-mv "$BATIK/batik-bridge-1.17.jar" "$USR/lib"
-mv "$BATIK/batik-constants-1.17.jar" "$USR/lib"
-mv "$BATIK/batik-css-1.17.jar" "$USR/lib"
-mv "$BATIK/batik-dom-1.17.jar" "$USR/lib"
-mv "$BATIK/batik-ext-1.17.jar" "$USR/lib"
-mv "$BATIK/batik-gvt-1.17.jar" "$USR/lib"
-mv "$BATIK/batik-i18n-1.17.jar" "$USR/lib"
-mv "$BATIK/batik-parser-1.17.jar" "$USR/lib"
-mv "$BATIK/batik-script-1.17.jar" "$USR/lib"
-mv "$BATIK/batik-svg-dom-1.17.jar" "$USR/lib"
-mv "$BATIK/batik-transcoder-1.17.jar" "$USR/lib"
-mv "$BATIK/batik-util-1.17.jar" "$USR/lib"
-mv "$BATIK/batik-xml-1.17.jar" "$USR/lib"
-mv "$BATIK/xml-apis-ext-1.3.04.jar" "$USR/lib"
-mv "$BATIK/xmlgraphics-commons-2.9.jar" "$USR/lib"
+
+for JAR in ${LIBS[@]}; do
+	CLASSPATH+=":$USR/lib/$JAR.jar"
+	mv "$BATIK/$JAR.jar" "$USR/lib"
+done
+
 wget https://github.com/remkop/picocli/releases/download/v4.7.6/picocli-4.7.6.jar -P "$USR/lib"
 wget https://github.com/mozilla/rhino/releases/download/Rhino1_7_15_Release/rhino-1.7.15.jar -P "$USR/lib"
 
 # Compile Java
-javac -cp "$SRC:$USR/lib/batik-anim-1.17.jar:$USR/lib/batik-awt-util-1.17.jar:$USR/lib/batik-bridge-1.17.jar:$USR/lib/batik-constants-1.17.jar:$USR/lib/batik-css-1.17.jar:$USR/lib/batik-dom-1.17.jar:$USR/lib/batik-ext-1.17.jar:$USR/lib/batik-gvt-1.17.jar:$USR/lib/batik-i18n-1.17.jar:$USR/lib/batik-parser-1.17.jar:$USR/lib/batik-script-1.17.jar:$USR/lib/batik-svg-dom-1.17.jar:$USR/lib/batik-transcoder-1.17.jar:$USR/lib/batik-util-1.17.jar:$USR/lib/batik-xml-1.17.jar:$USR/lib/xml-apis-ext-1.3.04.jar:$USR/lib/xmlgraphics-commons-2.9.jar:$USR/lib/picocli-4.7.6.jar:$USR/lib/rhino-1.7.15.jar" -h "$JNIX11" -d "$USR/bin" "$SRC/com/grimpirate/SVGWall.java"
+javac \
+	-cp "$SRC:$CLASSPATH" \
+	-h "$JNIX11" \
+	-d "$USR/bin" \
+	"$SRC/com/grimpirate/SVGWall.java"
 
 # Compile native library
-cc -fPIC -I/usr/lib/jvm/default/include/ -I/usr/lib/jvm/default/include/linux/ -lX11 -shared -o "$USR/lib/libjnix11.so" "$JNIX11/com_grimpirate_SVGWall.c"
+cc \
+	-fPIC \
+	-I/usr/lib/jvm/default/include/ \
+	-I/usr/lib/jvm/default/include/linux/ \
+	-lX11 \
+	-shared \
+	-o "$USR/lib/libjnix11.so" \
+	"$JNIX11/com_grimpirate_SVGWall.c"
 chmod 0644 "$USR/lib/libjnix11.so"
 
 # Embedded JRE
-jlink --no-header-files --no-man-pages --strip-debug --compress=zip-9 --add-modules java.desktop,jdk.xml.dom --output "$USR/bin/jre"
+jlink \
+	--no-header-files \
+	--no-man-pages \
+	--strip-debug \
+	--compress=zip-9 \
+	--add-modules java.desktop,jdk.xml.dom \
+	--output "$USR/bin/jre"
 rm -rf "$USR/bin/jre/legal" "$USR/bin/jre/release" "$USR-bin/jre/bin/keytool"
 
 # Finalize AppDir
