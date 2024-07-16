@@ -71,9 +71,6 @@ public class BufferedImageTranscoder extends ImageTranscoder
 	 */
 	public byte[] getImageData()
 	{
-		ByteBuffer buffer  = ByteBuffer.allocate(image.getWidth() * image.getHeight() * 4);
-		Arrays.stream(((DataBufferInt) image.getData().getDataBuffer()).getData())
-		.forEach(i -> buffer.putInt(Integer.reverseBytes(i)));
-		return buffer.array();
+		return ((DataBufferByte) image.getData().getDataBuffer()).getData();
 	}
 }
