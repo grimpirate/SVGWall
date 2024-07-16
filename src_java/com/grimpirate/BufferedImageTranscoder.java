@@ -39,7 +39,7 @@ public class BufferedImageTranscoder extends ImageTranscoder
 			Raster.createInterleavedRaster(
 				DataBuffer.TYPE_BYTE,
 				width,
-				heigth,
+				height,
 				width * 4,
 				4,
 				new int[] {2, 1, 0, 3}, // BGRA offsets
