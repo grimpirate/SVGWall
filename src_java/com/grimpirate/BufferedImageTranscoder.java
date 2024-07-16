@@ -1,9 +1,12 @@
 package com.grimpirate;
 
+import java.awt.Transparency;
+import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferInt;
-import java.nio.ByteBuffer;
-import java.util.Arrays;
+import java.awt.image.ComponentColorModel;
+import java.awt.image.DataBuffer;
+import java.awt.image.DataBufferByte;
+import java.awt.image.Raster;
 
 import org.apache.batik.transcoder.TranscoderException;
 import org.apache.batik.transcoder.TranscoderInput;
@@ -26,7 +29,23 @@ public class BufferedImageTranscoder extends ImageTranscoder
 	@Override
 	public BufferedImage createImage(int width, int height)
 	{
-		return new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		return new BufferedImage(new ComponentColorModel(
+				ColorSpace.getInstance(ColorSpace.CS_sRGB),
+				new int[] {8,8,8,8},
+				true,
+				false,
+				Transparency.OPAQUE,
+				DataBuffer.TYPE_BYTE),
+			Raster.createInterleavedRaster(
+				DataBuffer.TYPE_BYTE,
+				width,
+				heigth,
+				width * 4,
+				4,
+				new int[] {2, 1, 0, 3}, // BGRA offsets
+				null),
+		false,
+		null);
 	}
 
 	@Override

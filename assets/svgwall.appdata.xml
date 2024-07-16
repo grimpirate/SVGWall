@@ -38,6 +38,11 @@
 		<internet>always</internet>
 	</supports>
 	<releases>
+		<release version="20240716.1" date="2024-07-16">
+			<description>
+				<p>BufferedImageTranscoder as ComponentColorModel rather than PackedColorModel</p>
+			</description>
+		</release>
 		<release version="20240626.1" date="2024-06-26">
 			<description>
 				<p>SVG display using javascript</p>
