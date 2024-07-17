@@ -17,6 +17,7 @@ import org.w3c.dom.Document;
 public class BufferedImageTranscoder extends ImageTranscoder
 {
 	private BufferedImage image;
+	private DataBufferByte buffer;
 	
 	public BufferedImageTranscoder(Document svg, float width, float height) throws TranscoderException
 	{
@@ -37,7 +38,7 @@ public class BufferedImageTranscoder extends ImageTranscoder
 				Transparency.OPAQUE,
 				DataBuffer.TYPE_BYTE),
 			Raster.createInterleavedRaster(
-				DataBuffer.TYPE_BYTE,
+				new DataBufferByte(with * 4 * height),
 				width,
 				height,
 				width * 4,
@@ -71,6 +72,6 @@ public class BufferedImageTranscoder extends ImageTranscoder
 	 */
 	public byte[] getImageData()
 	{
-		return ((DataBufferByte) image.getData().getDataBuffer()).getData();
+		return buffer.getData();
 	}
 }
