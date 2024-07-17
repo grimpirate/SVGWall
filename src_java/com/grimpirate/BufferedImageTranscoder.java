@@ -38,7 +38,7 @@ public class BufferedImageTranscoder extends ImageTranscoder
 				Transparency.OPAQUE,
 				DataBuffer.TYPE_BYTE),
 			Raster.createInterleavedRaster(
-				new DataBufferByte(width * 4 * height),
+				buffer = new DataBufferByte(width * 4 * height),
 				width,
 				height,
 				width * 4,
