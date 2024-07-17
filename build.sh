@@ -7,27 +7,28 @@ ASSETS="$DIR/assets"
 BATIK="$ASSETS/batik-1.17/lib"
 APPDIR="$DIR/svgwall.AppDir"
 USR="$APPDIR/usr"
-LIBS=(
-	"rhino-1.7.15"
-	"picocli-4.7.6"
-	"xmlgraphics-commons-2.9"
-	"batik-anim-1.17"
-	"batik-bridge-1.17"
-	"batik-css-1.17"
-	"batik-dom-1.17"
-	"batik-gvt-1.17"
-	"batik-transcoder-1.17"
-	"batik-util-1.17"
-	"batik-i18n-1.17"
-	"batik-svg-dom-1.17"
-	"batik-constants-1.17"
-	"batik-ext-1.17"
-	"batik-xml-1.17"
-	"batik-parser-1.17"
-	"batik-script-1.17"
-	"batik-awt-util-1.17"
-	"xml-apis-ext-1.3.04"
-)
+LIBS="
+rhino-1.7.15
+picocli-4.7.6
+xmlgraphics-commons-2.9
+batik-anim-1.17
+batik-bridge-1.17
+batik-css-1.17
+batik-dom-1.17
+batik-gvt-1.17
+batik-transcoder-1.17
+batik-util-1.17
+batik-i18n-1.17
+batik-svg-dom-1.17
+batik-constants-1.17
+batik-ext-1.17
+batik-xml-1.17
+batik-parser-1.17
+batik-script-1.17
+batik-awt-util-1.17
+xml-apis-ext-1.3.04
+"
+
 CLASSPATH=""
 
 # AppDir structure
@@ -41,8 +42,8 @@ mkdir -p "$USR/share/icons/hicolor/scalable/apps"
 wget https://archive.apache.org/dist/xmlgraphics/batik/binaries/batik-bin-1.17.tar.gz -P "$DIR/assets"
 tar -xzf "$DIR/assets/batik-bin-1.17.tar.gz" -C "$DIR/assets"
 
-for JAR in ${LIBS[@]}; do
-	CLASSPATH+=":$USR/lib/$JAR.jar"
+for JAR in $LIBS; do
+	CLASSPATH="$CLASSPATH:$USR/lib/$JAR.jar"
 	mv "$BATIK/$JAR.jar" "$USR/lib"
 done
 
