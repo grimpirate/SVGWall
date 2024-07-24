@@ -16,9 +16,10 @@ JNIEXPORT void JNICALL Java_com_grimpirate_SVGWall_apply(JNIEnv *env, jclass thi
 	Pixmap pixmap = XCreatePixmap(display, root, width, height, depth);
 	GC graphics = XCreateGC(display, pixmap, 0, NULL);
 
+	// https://tronche.com/gui/x/xlib/utilities/XCreateImage.html
 	XImage *image = XCreateImage(display,
 		XDefaultVisual(display, screen),
-		depth, ZPixmap, 0, 
+		depth, ZPixmap, 0,	// ZPixmap from X11/X.h defined as the value 2
 		(char*)(*env)->GetByteArrayElements(env, inJNIArray, NULL),
 		width, height, 32, 0);
 	XPutImage(display, pixmap, graphics, image, 0, 0, 0, 0, width, height);
