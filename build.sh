@@ -73,7 +73,6 @@ jlink \
 	--no-header-files \
 	--no-man-pages \
 	--strip-debug \
-	--compress=zip-9 \
 	--add-modules java.desktop,jdk.xml.dom \
 	--output "$USR/bin/jre"
 rm -rf "$USR/bin/jre/legal" "$USR/bin/jre/release" "$USR/bin/jre/bin/keytool"
