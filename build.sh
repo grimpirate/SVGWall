@@ -4,28 +4,28 @@ DIR="$(dirname "$(readlink -f "${0}")")"
 JNIX11="$DIR/src_c"
 SRC="$DIR/src_java"
 ASSETS="$DIR/assets"
-BATIK="$ASSETS/batik-1.17/lib"
+BATIK="$ASSETS/batik-1.19/lib"
 APPDIR="$DIR/svgwall.AppDir"
 USR="$APPDIR/usr"
 LIBS="
-rhino-1.7.15
-picocli-4.7.6
-xmlgraphics-commons-2.9
-batik-anim-1.17
-batik-bridge-1.17
-batik-css-1.17
-batik-dom-1.17
-batik-gvt-1.17
-batik-transcoder-1.17
-batik-util-1.17
-batik-i18n-1.17
-batik-svg-dom-1.17
-batik-constants-1.17
-batik-ext-1.17
-batik-xml-1.17
-batik-parser-1.17
-batik-script-1.17
-batik-awt-util-1.17
+rhino-1.8.0
+picocli-4.7.7
+xmlgraphics-commons-2.11
+batik-anim-1.19
+batik-bridge-1.19
+batik-css-1.19
+batik-dom-1.19
+batik-gvt-1.19
+batik-transcoder-1.19
+batik-util-1.19
+batik-i18n-1.19
+batik-svg-dom-1.19
+batik-constants-1.19
+batik-ext-1.19
+batik-xml-1.19
+batik-parser-1.19
+batik-script-1.19
+batik-awt-util-1.19
 xml-apis-ext-1.3.04
 "
 
@@ -39,41 +39,37 @@ mkdir -p "$USR/share/icons/hicolor/256x256/apps"
 mkdir -p "$USR/share/icons/hicolor/scalable/apps"
 
 # Needed lib(s)
-wget https://archive.apache.org/dist/xmlgraphics/batik/binaries/batik-bin-1.17.tar.gz -P "$DIR/assets"
-tar -xzf "$DIR/assets/batik-bin-1.17.tar.gz" -C "$DIR/assets"
+wget https://archive.apache.org/dist/xmlgraphics/batik/binaries/batik-bin-1.19.tar.gz -P "$DIR/assets"
+tar -xzf "$DIR/assets/batik-bin-1.19.tar.gz" -C "$DIR/assets"
 
 for JAR in $LIBS; do
 	CLASSPATH="$CLASSPATH:$USR/lib/$JAR.jar"
 	mv "$BATIK/$JAR.jar" "$USR/lib"
 done
 
-wget https://github.com/remkop/picocli/releases/download/v4.7.6/picocli-4.7.6.jar -P "$USR/lib"
-wget https://github.com/mozilla/rhino/releases/download/Rhino1_7_15_Release/rhino-1.7.15.jar -P "$USR/lib"
+wget https://github.com/remkop/picocli/releases/download/v4.7.7/picocli-4.7.7.jar -P "$USR/lib"
+wget https://repo1.maven.org/maven2/org/mozilla/rhino/1.8.0/rhino-1.8.0.jar -P "$USR/lib"
 
 # Compile Java
 javac \
 	-cp "$SRC:$CLASSPATH" \
-	-h "$JNIX11" \
 	-d "$USR/bin" \
 	"$SRC/com/grimpirate/SVGWall.java"
 
 # Compile native library
 cc \
 	-fPIC \
-	-I/usr/lib/jvm/default/include/ \
-	-I/usr/lib/jvm/default/include/linux/ \
 	-lX11 \
-	-shared \
-	-o "$USR/lib/libjnix11.so" \
-	"$JNIX11/com_grimpirate_SVGWall.c"
-chmod 0644 "$USR/lib/libjnix11.so"
+	-o "$USR/bin/x11root" \
+	"$JNIX11/x11root.c"
+chmod 0755 "$USR/bin/x11root"
 
 # Embedded JRE
-jlink \
+/usr/lib/jvm/default/bin/jlink \
 	--no-header-files \
 	--no-man-pages \
 	--strip-debug \
-	--add-modules java.desktop,jdk.xml.dom \
+	--add-modules java.desktop,jdk.xml.dom,jdk.dynalink \
 	--output "$USR/bin/jre"
 rm -rf "$USR/bin/jre/legal" "$USR/bin/jre/release" "$USR/bin/jre/bin/keytool"
 mv "$USR/bin/jre/bin/java" "$USR/bin/jre/bin/svgwall"
