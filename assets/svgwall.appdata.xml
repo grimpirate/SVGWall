@@ -24,20 +24,31 @@
 	<provides>
 		<id>svgwall.desktop</id>
 		<binary>AppRun</binary>
-		<library>libjnix11.so</library>
+		<binary>x11root</binary>
 		<mediatype>image/svg+xml</mediatype>
 	</provides>
 	<requires>
-		<id version="1.17" compare="ge">Apache Batik</id>
-		<id version="4.7.6">picocli</id>
-		<id version="1.7.15">Mozilla Rhino</id>
-		<id version="22">OpenJDK</id>
+		<id version="1.19" compare="ge">Apache Batik</id>
+		<id version="4.7.7">picocli</id>
+		<id version="1.8.0">Mozilla Rhino</id>
+		<id version="25">OpenJDK</id>
 		<id version="1.8.9.1">libX11</id>
 	</requires>
 	<supports>
 		<internet>always</internet>
 	</supports>
 	<releases>
+		<release version="20251031.1" date="2025-10-31">
+			<description>
+				<ul>
+					<li>Version updates: Batik, PicoCLI, Rhino</li>
+					<li>JNI usage removed</li>
+					<li>x11root utility reads byte[] data from stdin</li>
+					<li>Sample SVGs</li>
+					<li>appimagetool URL change</li>
+				</ul>
+			</description>
+		</release>
 		<release version="20240716.1" date="2024-07-16">
 			<description>
 				<p>BufferedImageTranscoder as ComponentColorModel rather than PackedColorModel</p>
@@ -156,3 +167,4 @@
 	</developer>
 	<content_rating type="oars-1.0" />
 </component>
+
