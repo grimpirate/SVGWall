@@ -2,8 +2,12 @@ package com.grimpirate;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -23,7 +27,7 @@ public class SVGWall {
 	{
 		ParseResult result = (new Shell(args)).getParseResult();
 
-		String js = result.matchedOptionValue("--javascript", "");
+		File js = result.matchedOptionValue("--javascript", "");
 		
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 		
@@ -31,8 +35,12 @@ public class SVGWall {
 
 		BufferedImageTranscoder transcoder = new BufferedImageTranscoder(script.getDocument(), dimension.width, dimension.height);
 
-		System.out.write(transcoder.getImageData());
-
-		System.out.flush();
+		File pipe = result.matchedOptionValue("--pipe", "");
+		ProcessBuilder builder = new ProcessBuilder(URLDecoder.decode(pipe.getAbsolutePath(), StandardCharsets.UTF_8.name()));
+		Process process = builder.start();
+		OutputStream stream = process.getOutputStream();
+		stream.write(transcoder.getImageData());
+		stream.flush();
+		stream.close();
 	}
 }
