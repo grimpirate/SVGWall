@@ -30,6 +30,7 @@ for JAR in $LIBS; do
 done
 
 exec "$DIR/jre/bin/svgwall" \
+	--enable-native-access=ALL-UNNAMED \
 	-Dawt.useSystemAAFontSettings=on \
 	-Dswing.aatext=true \
 	-Dfile.encoding=UTF-8 \
