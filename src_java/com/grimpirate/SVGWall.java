@@ -17,11 +17,6 @@ public class SVGWall {
 
 	public static final String APP_NAME = "SVGWall-x86_64.AppImage";
 
-	static
-	{
-		System.loadLibrary("jnix11");
-	}
-
 	private static native void apply(byte[] data);
 
 	public static void main(String... args) throws PicocliException, SAXException, IOException, ParserConfigurationException, InterruptedException, TranscoderException, IllegalAccessException, InstantiationException, InvocationTargetException
@@ -36,6 +31,8 @@ public class SVGWall {
 
 		BufferedImageTranscoder transcoder = new BufferedImageTranscoder(script.getDocument(), dimension.width, dimension.height);
 
-		apply(transcoder.getImageData());
+		System.out.write(transcoder.getImageData());
+
+		System.out.flush();
 	}
 }
