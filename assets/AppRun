@@ -38,5 +38,6 @@ exec "$DIR/jre/bin/svgwall" \
 	-Djava.library.path="$DIR/../lib" \
 	-classpath "$DIR$CLASSPATH" \
 	com.grimpirate.SVGWall \
+	-p "$DIR/x11root" \
 	-m "$DIR/../share/metainfo/svgwall.appdata.xml" \
 	"$@"
