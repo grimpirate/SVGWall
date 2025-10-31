@@ -21,13 +21,11 @@ public class SVGWall {
 
 	public static final String APP_NAME = "SVGWall-x86_64.AppImage";
 
-	private static native void apply(byte[] data);
-
 	public static void main(String... args) throws PicocliException, SAXException, IOException, ParserConfigurationException, InterruptedException, TranscoderException, IllegalAccessException, InstantiationException, InvocationTargetException
 	{
 		ParseResult result = (new Shell(args)).getParseResult();
 
-		File js = result.matchedOptionValue("--javascript", "");
+		File js = result.matchedOptionValue("--javascript", null);
 		
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 		
@@ -35,7 +33,7 @@ public class SVGWall {
 
 		BufferedImageTranscoder transcoder = new BufferedImageTranscoder(script.getDocument(), dimension.width, dimension.height);
 
-		File pipe = result.matchedOptionValue("--pipe", "");
+		File pipe = result.matchedOptionValue("--pipe", null);
 		ProcessBuilder builder = new ProcessBuilder(URLDecoder.decode(pipe.getAbsolutePath(), StandardCharsets.UTF_8.name()));
 		Process process = builder.start();
 		OutputStream stream = process.getOutputStream();
