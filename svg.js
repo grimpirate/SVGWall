@@ -9,16 +9,16 @@
 //const svg = SVG.load('https://raw.githubusercontent.com/Mikluki/awesome_svg_wallpaper/04055c39e2941d54e9753e09afe8277552f93878/3_stroke_pattern/1_pink_pattern_darker.svg');
 //const svg = SVG.load('https://raw.githubusercontent.com/Mikluki/awesome_svg_wallpaper/04055c39e2941d54e9753e09afe8277552f93878/4_code/code.svg');
 const svg = SVG.load('https://gist.githubusercontent.com/vschmidt94/7ae2c23fede9f53bf63da4d7ace5fc14/raw/e41ed2bd565a54e90b33209dc820086e93121ab5/retro_gruvbox_linux_wallpaper.svg');
-const MARGIN = 3;
-const LINESPACE = 5;
 const viewBox = svg.getAttribute('viewBox').match(/[\d\.]+/gi).map(parseFloat);
 const width = viewBox[2] ?? 0;
 const height = viewBox[3] ?? 0;
+const MARGIN = height / 200.0 * 3;
+const LINESPACE = height / 35.0;
 svg.appendChild(SVG.element('style', null, `
 text
 {
 	fill: white;
-	font-size: 4pt;
+	font-size: ${height / 50.0}pt;
 	font-family: monospace;
 }
 `));
