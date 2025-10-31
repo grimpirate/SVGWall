@@ -1,6 +1,7 @@
 package com.grimpirate;
 
 import java.awt.Dimension;
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -17,7 +18,7 @@ public class JavaScript
 {
 	private Document document;
 
-	public JavaScript(String js, String version, Dimension dimension) throws IllegalAccessException, InstantiationException, InvocationTargetException
+	public JavaScript(File js, String version, Dimension dimension) throws IllegalAccessException, InstantiationException, InvocationTargetException
 	{
 		Context context = Context.enter();
 		context.setLanguageVersion(Context.VERSION_ES6);
@@ -34,7 +35,7 @@ public class JavaScript
 		ScriptableObject.putConstProperty(scope, "Platform", Context.javaToJS(host, scope));
 		try
 		{
-			context.evaluateReader(scope, new java.io.FileReader(js), js, 1, null);
+			context.evaluateReader(scope, new java.io.FileReader(js), js.getName(), 1, null);
 			Element element = (Element) Context.jsToJava(scope.get("svg", scope), Element.class);
 			document = element.getOwnerDocument();
 			//texts = Arrays.stream(((NativeArray) context.evaluateReader(scope, new java.io.FileReader(js), "<cmd>", 1, null)).toArray()).toArray(CoordinateText[]::new);
