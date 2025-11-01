@@ -40,7 +40,7 @@ mkdir -p "$USR/share/icons/hicolor/scalable/apps"
 
 # Needed lib(s)
 wget https://archive.apache.org/dist/xmlgraphics/batik/binaries/batik-bin-1.19.tar.gz -P "$ASSETS"
-tar -xzf "$ASSETS/batik-bin-1.19.tar.gz" -C "$ASSETS"
+tar -xzvf "$ASSETS/batik-bin-1.19.tar.gz" -C "$ASSETS"
 
 for JAR in $LIBS; do
 	CLASSPATH="$CLASSPATH:$USR/lib/$JAR.jar"
@@ -51,7 +51,7 @@ wget https://github.com/remkop/picocli/releases/download/v4.7.7/picocli-4.7.7.ja
 wget https://repo1.maven.org/maven2/org/mozilla/rhino/1.8.0/rhino-1.8.0.jar -P "$USR/lib"
 
 wget https://download.java.net/java/GA/jdk25/bd75d5f9689641da8e1daabeccb5528b/36/GPL/openjdk-25_linux-x64_bin.tar.gz -P "$ASSETS"
-tar -xzf "$ASSETS/openjdk-25_linux-x64_bin.tar.gz" -C "$ASSETS"
+tar -xzvf "$ASSETS/openjdk-25_linux-x64_bin.tar.gz" -C "$ASSETS"
 
 # Compile Java
 "$ASSETS/jdk-25/bin/javac" \
