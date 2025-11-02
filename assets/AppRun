@@ -39,5 +39,5 @@ exec "$DIR/jre/bin/svgwall" \
 	-classpath "$DIR$CLASSPATH" \
 	com.grimpirate.SVGWall \
 	-p "$DIR/x11root" \
-	-m "$DIR/../share/metainfo/svgwall.appdata.xml" \
+	-m "$DIR/../share/metainfo/com.grimpirate.svgwall.appdata.xml" \
 	"$@"

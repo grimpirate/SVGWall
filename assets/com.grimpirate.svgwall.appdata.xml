@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright © 2024 Grim Pirate. All rights reserved worldwide. -->
+<!-- Copyright © 2024-2025 Grim Pirate. All rights reserved worldwide. -->
 <component type="console-application">
-	<id>svgwall</id>
-	<metadata_license>MITNFA</metadata_license>
-	<project_license>MITNFA</project_license>
+	<id>com.grimpirate.svgwall</id>
+	<metadata_license>MIT</metadata_license>
+	<project_license>MIT</project_license>
 	<name>SVGWall</name>
 	<summary>SVG Wallpaper Utility for Xorg</summary>
-	<icon type="local">icon</icon>
+	<icon type="local">/usr/share/icons/hicolor/scalable/apps/svgwall.svg</icon>
 	<description>
 		<p>Applies SVG files (both local and remote) as wallpapers/backgrounds to an Xorg server.</p>
 	</description>
@@ -167,4 +167,3 @@
 	</developer>
 	<content_rating type="oars-1.0" />
 </component>
-
