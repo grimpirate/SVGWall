@@ -8,44 +8,54 @@
 //const svg = SVG.load('https://raw.githubusercontent.com/Mikluki/awesome_svg_wallpaper/04055c39e2941d54e9753e09afe8277552f93878/2_eye_of_the_universe/eye.svg');
 //const svg = SVG.load('https://raw.githubusercontent.com/Mikluki/awesome_svg_wallpaper/04055c39e2941d54e9753e09afe8277552f93878/3_stroke_pattern/1_pink_pattern_darker.svg');
 //const svg = SVG.load('https://raw.githubusercontent.com/Mikluki/awesome_svg_wallpaper/04055c39e2941d54e9753e09afe8277552f93878/4_code/code.svg');
-const svg = SVG.load('https://gist.githubusercontent.com/vschmidt94/7ae2c23fede9f53bf63da4d7ace5fc14/raw/e41ed2bd565a54e90b33209dc820086e93121ab5/retro_gruvbox_linux_wallpaper.svg');
-const viewBox = svg.getAttribute('viewBox').match(/[\d\.]+/gi).map(parseFloat);
-const width = viewBox[2] ?? 0;
-const height = viewBox[3] ?? 0;
-const MARGIN = height / 200.0 * 3;
-const LINESPACE = height / 35.0;
+//const svg = SVG.load('https://gist.githubusercontent.com/vschmidt94/7ae2c23fede9f53bf63da4d7ace5fc14/raw/e41ed2bd565a54e90b33209dc820086e93121ab5/retro_gruvbox_linux_wallpaper.svg');
+const viewBox = `0 0 ${Platform.width} ${Platform.height}`.match(/[\d\.]+/gi).map(parseFloat);
+const MARGIN = Platform.height / 200.0 * 3;
+const LINESPACE = Platform.height / 45.0;
+const svg = SVG.blank();
+svg.setAttribute('viewBox', viewBox.join(' '));
 svg.appendChild(SVG.element('style', null, `
+rect
+{
+	fill: black;
+}
 text
 {
 	fill: white;
-	font-size: ${height / 50.0}pt;
+	font-size: ${Platform.height / 70.0}pt;
 	font-family: monospace;
 }
 `));
+svg.appendChild(SVG.element('rect', {
+	x: 0,
+	y: 0,
+	width: Platform.width,
+	height: Platform.height,
+}, Platform.time));
 svg.appendChild(SVG.element('text', {
-	x: width - MARGIN,
-	y: height - MARGIN,
+	x: Platform.width - MARGIN,
+	y: Platform.height - MARGIN,
 	'text-anchor': 'end'
 }, Platform.time));
 svg.appendChild(SVG.element('text', {
-	x: width - MARGIN,
-	y: height - MARGIN - LINESPACE,
+	x: Platform.width - MARGIN,
+	y: Platform.height - MARGIN - LINESPACE,
 	'text-anchor': 'end'
 }, Platform.version));
 svg.appendChild(SVG.element('text', {
 	x: '50%',
-	y: height - MARGIN,
+	y: Platform.height - MARGIN,
 	'text-anchor': 'middle'
 }, '--grimpirate.com--'));
 svg.appendChild(SVG.element('text', {
 	x: MARGIN,
-	y: height - MARGIN
+	y: Platform.height - MARGIN
 }, Platform.jvm));
 svg.appendChild(SVG.element('text', {
 	x: MARGIN,
-	y: height - MARGIN - LINESPACE
+	y: Platform.height - MARGIN - LINESPACE
 }, Platform.os_ver));
 svg.appendChild(SVG.element('text', {
 	x: MARGIN,
-	y: height - MARGIN - 2 * LINESPACE
+	y: Platform.height - MARGIN - 2 * LINESPACE
 }, Platform.os_arch));
