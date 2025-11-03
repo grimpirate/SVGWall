@@ -18,3 +18,8 @@ Requires a JDK
     cd SVGWall
     chmod 0755 build.sh
     ./build.sh
+
+### Get latest release
+```
+curl -LO https://github.com/grimpirate/svgwall/releases/latest/download/SVGWall-x86_64.AppImage
+```
