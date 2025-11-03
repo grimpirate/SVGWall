@@ -20,6 +20,10 @@ Requires a JDK
     ./build.sh
 
 ### Get latest release
-```
-curl -LO https://github.com/grimpirate/svgwall/releases/latest/download/SVGWall-x86_64.AppImage
-```
+
+    curl -LO https://github.com/grimpirate/svgwall/releases/latest/download/SVGWall-x86_64.AppImage
+
+### Dynamic Gauge Demo
+
+    chmod 0755 disk.sh
+    ./disk.sh / svg.js
