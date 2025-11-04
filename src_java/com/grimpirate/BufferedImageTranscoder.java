@@ -8,6 +8,7 @@ import java.awt.image.DataBuffer;
 import java.awt.image.DataBufferByte;
 import java.awt.image.Raster;
 
+import org.apache.batik.transcoder.SVGAbstractTranscoder;
 import org.apache.batik.transcoder.TranscoderException;
 import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
@@ -23,6 +24,7 @@ public class BufferedImageTranscoder extends ImageTranscoder
 	{
 		addTranscodingHint(KEY_WIDTH, width);
 		addTranscodingHint(KEY_HEIGHT, height);
+		addTranscodingHint(SVGAbstractTranscoder.KEY_ALLOW_EXTERNAL_RESOURCES, true);
 		TranscoderInput input = new TranscoderInput(svg);
 		transcode(input, null);
 	}
