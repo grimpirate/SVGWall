@@ -13,9 +13,10 @@ const viewBox = `0 0 ${Platform.width} ${Platform.height}`.match(/[\d\.]+/gi).ma
 const MARGIN = Platform.height / 200.0 * 3;
 const LINESPACE = Platform.height / 45.0;
 const svg = SVG.blank();
-const used = null;
-const available = null;
-const percent = null;
+const used = '31G';
+const available = '926G';
+const percent = 4/100.0;
+const battery = 79;
 svg.setAttribute('viewBox', viewBox.join(' '));
 svg.appendChild(SVG.element('style', null, `
 rect
@@ -52,6 +53,40 @@ svg.appendChild(SVG.element('rect', {
 	width: Platform.width,
 	height: Platform.height,
 }, Platform.time));
+const horizontal = SVG.element('g', {
+	transform: `translate(${Platform.width * 0.5} ${Platform.height * 0.25})`,
+});
+horizontal.appendChild(SVG.element('line', {
+	x1: -1,
+	y1: 0,
+	x2: 1,
+	y2: 0,
+	'stroke-dasharray': '2 2',
+	'stroke-linecap': 'butt',
+	'stroke-width': 0.3,
+	fill: 'none',
+	stroke: 'white',
+	'stroke-opacity': 0.2,
+	transform: 'scale(100 100)',
+}));
+horizontal.appendChild(SVG.element('line', {
+	x1: -1,
+	y1: 0,
+	x2: 1,
+	y2: 0,
+	'stroke-dasharray': `${0.02 * battery} 2`,
+	'stroke-linecap': 'butt',
+	'stroke-width': 0.3,
+	fill: 'none',
+	stroke: 'chartreuse',
+	transform: 'scale(100 100)',
+}));
+horizontal.appendChild(SVG.element('text', {
+	x: 0,
+	y: '2em',
+	'text-anchor': 'middle'
+}, `Battery ${battery}%`));
+svg.appendChild(horizontal);
 const gauge = SVG.element('g', {
 	transform: `translate(${Platform.width * 0.5} ${Platform.height * 0.5})`,
 });
