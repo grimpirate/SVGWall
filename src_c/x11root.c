@@ -30,7 +30,7 @@ int main()
 	{
 		XFreeGC(display, graphics);
 		XFreePixmap(display, pixmap);
-		XDestroyWindow(display, root);
+		//XDestroyWindow(display, root); // Useless on root
 		XCloseDisplay(display);
 		return EXIT_FAILURE;
 	}
@@ -67,7 +67,7 @@ int main()
 		free(data);
 		XFreeGC(display, graphics);
 		XFreePixmap(display, pixmap);
-		XDestroyWindow(display, root);
+		//XDestroyWindow(display, root); // Useless on root
 		XCloseDisplay(display);
 		return EXIT_FAILURE;
 	}
@@ -79,7 +79,7 @@ int main()
 	XDestroyImage(image);
 	XFreeGC(display, graphics);
 	XFreePixmap(display, pixmap);
-	XDestroyWindow(display, root);
+	//XDestroyWindow(display, root); // Useless on root
 	XCloseDisplay(display);
 
 	return EXIT_SUCCESS;
