@@ -59,9 +59,9 @@ tar -xzvf "$ASSETS/openjdk-25_linux-x64_bin.tar.gz" -C "$ASSETS"
 	-d "$USR/bin" \
 	"$SRC/com/grimpirate/SVGWall.java"
 
-# Compile native library
+# Compile Position Independent Executable
 cc \
-	-fPIC \
+	-fPIE \
 	-lX11 \
 	-o "$USR/bin/x11root" \
 	"$JNIX11/x11root.c"
