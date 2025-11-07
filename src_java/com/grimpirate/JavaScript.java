@@ -3,8 +3,6 @@ package com.grimpirate;
 import java.awt.Dimension;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import org.apache.batik.anim.dom.SVGDOMImplementation;
 import org.mozilla.javascript.Context;
@@ -31,7 +29,7 @@ public class JavaScript
 		ScriptableObject.putConstProperty(host, "jvm", Context.javaToJS(System.getProperty("java.runtime.name") + " " + System.getProperty("java.runtime.version"), scope));
 		ScriptableObject.putConstProperty(host, "os_ver", Context.javaToJS(System.getProperty("os.version"), scope));
 		ScriptableObject.putConstProperty(host, "os_arch", Context.javaToJS(System.getProperty("os.name") + " " + System.getProperty("os.arch"), scope));
-		ScriptableObject.putConstProperty(host, "time", Context.javaToJS(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), scope));
+		ScriptableObject.putConstProperty(host, "chrono", Context.javaToJS(new Chrono(), scope));
 		ScriptableObject.putConstProperty(scope, "Platform", Context.javaToJS(host, scope));
 		try
 		{
