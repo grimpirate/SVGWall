@@ -13,6 +13,6 @@ public class Chrono
 
     public String iso8601()
     {
-        return ofPattern(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        return LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
     }
 }
