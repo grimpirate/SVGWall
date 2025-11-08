@@ -11,53 +11,36 @@
 //const svg = SVG.load('https://gist.githubusercontent.com/vschmidt94/7ae2c23fede9f53bf63da4d7ace5fc14/raw/e41ed2bd565a54e90b33209dc820086e93121ab5/retro_gruvbox_linux_wallpaper.svg');
 
 /*
- * Requires fonts
+ * FONTS
  * JetBrains Mono: https://www.jetbrains.com/lp/mono/
  * Anurati Regular: https://troisieme-type.com/anurati-pro
+ * Poppins: https://fonts.google.com/specimen/Poppins
  */
+
+function lerp(from, to, time)
+{
+	from = from.match(/[^#]{2}/g).map(c => parseInt(c, 16));
+	to = to.match(/[^#]{2}/g).map(c => parseInt(c, 16));
+	tween = [];
+	
+	for(let c = 0; c < 3; c++)
+		tween[c] = Math.round(from[c] + (to[c] - from[c]) * time);
+
+	return `#${tween.map(c => c.toString(16).padStart(2, '0')).join('')}`;
+}
 
 const viewBox = `0 0 ${Platform.width} ${Platform.height}`.match(/[\d\.]+/gi).map(parseFloat);
 const MARGIN = Platform.height / 200.0 * 3;
 const LINESPACE = Platform.height / 45.0;
 const svg = SVG.blank();
-const used = '31G';
-const available = '926G';
+const used = '32G';
+const available = '925G';
 const percent = 4/100.0;
 const battery = 79;
 const fonts = {
-	standard : `fill: #eadcb2; font-size: ${Platform.height / 70.0}pt; font-family: 'JetBrains Mono Medium';`,
+	standard : `fill: #eadcb2; font-size: ${Platform.height / 70.0}pt; font-family: 'Poppins';`,
 };
 svg.setAttribute('viewBox', viewBox.join(' '));
-const defs = SVG.element('defs');
-const gradient = SVG.element('linearGradient', {
-	id: 'batteryGradient',
-	x1: '0%',
-	x2: '100%',
-	y1: '0%',
-	y2: '0%',
-});
-gradient.appendChild(SVG.element('stop', {
-	offset: '0%',
-	'stop-color': '#cc241d',
-}));
-gradient.appendChild(SVG.element('stop', {
-	offset: '50%',
-	'stop-color': '#d89920',
-}));
-gradient.appendChild(SVG.element('stop', {
-	offset: '100%',
-	'stop-color': '#689e6a',
-}));
-defs.appendChild(gradient);
-const blur = SVG.element('filter', {
-	id: 'blur',
-});
-blur.appendChild(SVG.element('feGaussianBlur', {
-	in: 'SourceGraphic',
-	stdDeviation: 1,
-}));
-defs.appendChild(blur);
-svg.appendChild(defs);
 svg.appendChild(SVG.element('rect', {
 	x: 0,
 	y: 0,
@@ -109,22 +92,28 @@ svg.appendChild(image);
 const horizontal = SVG.element('g', {
 	transform: `translate(${Platform.width * 0.15} ${Platform.height * 0.75})`,
 });
-horizontal.appendChild(SVG.element('rect', {
-	x: -0.8,
-	y: -0.17,
-	width: 1.6,
-	height: 0.34,
-	fill: 'white',
-	opacity: 0.2,
-	transform: 'scale(50 50)',
+horizontal.appendChild(SVG.element('line', {
+	x1: -40,
+	y1: 0,
+	x2: 40,
+	y2: 0,
+	fill: 'none',
+	stroke: 'white',
+	'stroke-opacity': 0.2,
+	'stroke-linecap': 'butt',
+	'stroke-width': 17,
+	'stroke-dasharray': `80 80`,
 }));
-horizontal.appendChild(SVG.element('rect', {
-	x: -0.8,
-	y: -0.17,
-	width: 0.016 * battery,
-	height: 0.34,
-	fill: 'url(#batteryGradient)',
-	transform: 'scale(50 50)',
+horizontal.appendChild(SVG.element('line', {
+	x1: -40,
+	y1: 0,
+	x2: 40,
+	y2: 0,
+	fill: 'none',
+	stroke: battery / 100.0 < 0.5 ? lerp('#cc241d', '#d89920', battery / 50.0) : lerp('#d89920', '#689e6a', battery / 50.0 - 1),
+	'stroke-linecap': 'butt',
+	'stroke-width': 17,
+	'stroke-dasharray': `${0.8 * battery} 80`,
 }));
 horizontal.appendChild(SVG.element('text', {
 	x: 0,
@@ -139,25 +128,25 @@ const gauge = SVG.element('g', {
 gauge.appendChild(SVG.element('circle', {
 	cx: 0,
 	cy: 0,
-	r: 0.85,
+	r: 42.5,
 	fill: 'none',
 	stroke: 'white',
-	'stroke-width': 0.3,
+	'stroke-width': 15,
 	'stroke-linecap': 'butt',
-	'stroke-dasharray': '4.0 5.34',
+	'stroke-dasharray': '200 267',
 	'stroke-opacity': 0.2,
-	transform: 'scale(50,50) rotate(135, 0, 0)',
+	transform: 'rotate(135, 0, 0)',
 }));
 gauge.appendChild(SVG.element('circle', {
 	cx: 0,
 	cy: 0,
-	r: 0.85,
+	r: 42.5,
 	fill: 'none',
-	stroke: 'url(#batteryGradient)',
-	'stroke-width': 0.3,
+	stroke: percent < 0.5 ? lerp('#689e6a', '#d89920', 2 * percent) : lerp('#d89920', '#cc241d', 2 * percent - 1),
+	'stroke-width': 15,
 	'stroke-linecap': 'butt',
-	'stroke-dasharray': `${percent * 4.0} 5.34`,
-	transform: 'scale(50,50) rotate(135, 0, 0)',
+	'stroke-dasharray': `${percent * 200} 267`,
+	transform: 'rotate(135, 0, 0)',
 }));
 const text = SVG.element('text', {
 	x: 0,
@@ -258,11 +247,11 @@ svg.appendChild(SVG.element('text', {
 	x: '50%',
 	y: Platform.height * 0.15 + Platform.height * 0.05,
 	'text-anchor': 'middle',
-	style: `fill: #eadcb2; font-size: ${Platform.height / 40.0}pt; font-family: 'JetBrains Mono';`,
+	style: `fill: #eadcb2; font-size: ${Platform.height / 40.0}pt; font-family: 'JetBrains Mono Medium';`,
 }, Platform.chrono.ofPattern('yyyy LLL d').toUpperCase()));
 svg.appendChild(SVG.element('text', {
 	x: '50%',
 	y: Platform.height * 0.15 + Platform.height * 0.09,
 	'text-anchor': 'middle',
-	style: `fill: #eadcb2; font-size: ${Platform.height / 50.0}pt; font-family: 'JetBrains Mono';`,
-}, Platform.chrono.ofPattern('— HH:mm —').toUpperCase()));
+	style: `fill: #eadcb2; font-size: ${Platform.height / 50.0}pt; font-family: 'JetBrains Mono Medium';`,
+}, Platform.chrono.ofPattern('· HH:mm ·').toUpperCase()));
