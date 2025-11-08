@@ -8,5 +8,5 @@ Terminal=true
 MimeType=image/svg+xml
 Comment=SVG Wallpaper Utility for Xorg
 X-AppImage-Name=SVGWall
-X-AppImage-Version=20251031.1
+X-AppImage-Version=20251108.1
 X-AppImage-Arch=x86_64

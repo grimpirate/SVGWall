@@ -38,6 +38,14 @@
 		<internet>always</internet>
 	</supports>
 	<releases>
+		<release version="20251108.1" date="2025-11-08">
+			<description>
+				<ul>
+					<li>Allow external resources</li>
+					<li>Platform.chrono for date/time operations</li>
+				</ul>
+			</description>
+		</release>
 		<release version="20251031.1" date="2025-10-31">
 			<description>
 				<ul>
