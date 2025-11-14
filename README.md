@@ -26,4 +26,4 @@ Requires a JDK
 ### Dynamic Gauge Demo
 
     chmod 0755 disk.sh
-    ./disk.sh / svg.js
+    ./disk.sh / svg.js BAT1
