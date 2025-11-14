@@ -62,9 +62,9 @@ tar -xzvf "$ASSETS/openjdk-25_linux-x64_bin.tar.gz" -C "$ASSETS"
 # Compile Position Independent Executable
 cc \
 	-fPIE \
-	-lX11 \
 	-o "$USR/bin/x11root" \
-	"$JNIX11/x11root.c"
+	"$JNIX11/x11root.c" \
+	-lX11
 chmod 0755 "$USR/bin/x11root"
 
 # Embedded JRE
