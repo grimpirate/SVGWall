@@ -55,7 +55,7 @@ tar -xzvf "$ASSETS/openjdk-25_linux-x64_bin.tar.gz" -C "$ASSETS"
 
 # Compile Java
 "$ASSETS/jdk-25/bin/javac" \
-	-cp "$SRC:$CLASSPATH" \
+	-cp "$SRC$CLASSPATH" \
 	-d "$USR/bin" \
 	"$SRC/com/grimpirate/SVGWall.java"
 
