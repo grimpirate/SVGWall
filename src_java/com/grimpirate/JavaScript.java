@@ -30,6 +30,7 @@ public class JavaScript
 		ScriptableObject.putConstProperty(host, "os_ver", Context.javaToJS(System.getProperty("os.version"), scope));
 		ScriptableObject.putConstProperty(host, "os_arch", Context.javaToJS(System.getProperty("os.name") + " " + System.getProperty("os.arch"), scope));
 		ScriptableObject.putConstProperty(host, "chrono", Context.javaToJS(new Chrono(), scope));
+		ScriptableObject.putConstProperty(host, "network", Context.javaToJS(new LocalNetwork(), scope));
 		ScriptableObject.putConstProperty(scope, "Platform", Context.javaToJS(host, scope));
 		try
 		{

@@ -75,39 +75,23 @@ svg.appendChild(SVG.element('rect', {
 /*
  * Diagonal bands
  */
+
 const offset = Platform.height * 0.035;
-svg.appendChild(SVG.element('rect', {
-	x: 0,
-	y: Platform.height * 0.5 - offset - offset,
-	width: Platform.width,
-	height: offset,
-	fill: colors.green,
-	transform: `rotate(-45 ${Platform. width * 0.8} ${Platform.height * 0.25})`,
-}));
-svg.appendChild(SVG.element('rect', {
-	x: 0,
-	y: Platform.height * 0.5 - offset,
-	width: Platform.width,
-	height: offset,
-	fill: colors.blue,
-	transform: `rotate(-45 ${Platform. width * 0.8} ${Platform.height * 0.25})`,
-}));
-svg.appendChild(SVG.element('rect', {
-	x: 0,
-	y: Platform.height * 0.5,
-	width: Platform.width,
-	height: offset,
-	fill: colors.yellow,
-	transform: `rotate(-45 ${Platform. width * 0.8} ${Platform.height * 0.25})`,
-}));
-svg.appendChild(SVG.element('rect', {
-	x: 0,
-	y: Platform.height * 0.5 + offset,
-	width: Platform.width,
-	height: offset,
-	fill: colors.red,
-	transform: `rotate(-45 ${Platform. width * 0.8} ${Platform.height * 0.25})`,
-}));
+const band_colors = [
+	colors.red,
+	colors.yellow,
+	colors.blue,
+	colors.green,
+];
+for(let i = 2; i > -2; i++)
+	svg.appendChild(SVG.element('rect', {
+		x: 0,
+		y: Platform.height * 0.5 - i * offset,
+		width: Platform.width,
+		height: offset,
+		fill: band_colors[i + 1],
+		transform: `rotate(-45 ${Platform. width * 0.8} ${Platform.height * 0.25})`,
+	}));
 
 /*
  * Raster background
@@ -209,48 +193,46 @@ gauge.appendChild(text);
 svg.appendChild(gauge);
 
 /*
- * Right bottom text
+ * Right text
  */
 
-svg.appendChild(SVG.element('text', {
-	x: Platform.width - MARGIN,
-	y: Platform.height - MARGIN,
-	'text-anchor': 'end',
-	fill: colors.light,
-	style: fonts.standard,
-}, Platform.version));
-svg.appendChild(SVG.element('text', {
-	x: Platform.width - MARGIN,
-	y: Platform.height - MARGIN - LINESPACE,
-	'text-anchor': 'end',
-	fill: colors.light,
-	style: fonts.standard,
-}, Platform.jvm));
+const right_texts = [
+	Platform.jvm,
+	Platform.version,
+].reverse();
+for(let i = 0; i < right_texts.length; i++)
+	svg.appendChild(SVG.element('text', {
+		x: Platform.width - MARGIN,
+		y: Platform.height - MARGIN - i * LINESPACE,
+		'text-anchor': 'end',
+		fill: colors.light,
+		style: fonts.standard,
+	}, right_texts[i]));
 
 /*
- * Left bottom text
+ * Left text
  */
 
-svg.appendChild(SVG.element('text', {
-	x: MARGIN,
-	y: Platform.height - MARGIN,
-	fill: colors.light,
-	style: fonts.standard,
-}, Platform.os_ver));
-svg.appendChild(SVG.element('text', {
-	x: MARGIN,
-	y: Platform.height - MARGIN - LINESPACE,
-	fill: colors.light,
-	style: fonts.standard,
-}, Platform.os_arch));
-const logo = SVG.element('g', {
-	transform: `translate(${Platform.width * 0.5} ${Platform.height * 0.96})`,
-});
+const left_texts = [
+	Platform.os_arch,
+	Platform.os_ver,
+	`${Platform.network.getNetworkInterface()} - ${Platform.network.getInetAddress()}`,
+].reverse();
+for(let i = 0; i < left_texts.length; i++)
+	svg.appendChild(SVG.element('text', {
+		x: MARGIN,
+		y: Platform.height - MARGIN - i * LINESPACE,
+		fill: colors.light,
+		style: fonts.standard,
+	}, left_texts[i]));
 
 /*
  * Resist
  */
 
+const logo = SVG.element('g', {
+	transform: `translate(${Platform.width * 0.5} ${Platform.height * 0.96})`,
+});
 const resize = SVG.element('g', {
 	transform: `scale(0.1 0.1) translate(-300, -295) `,
 });
@@ -277,39 +259,18 @@ svg.appendChild(logo);
  */
 
 const delta = Platform.height * 0.005;
+const delta_colors = [
+	colors.light,
+	colors.green,
+	colors.blue,
+	colors.yellow,
+	colors.red,
+];
 svg.appendChild(SVG.element('text', {
-	x: Platform.width * 0.5 + 4 * delta,
+	x: Platform.width * 0.5 + i * delta,
 	y: Platform.height * 0.15,
 	'text-anchor': 'middle',
-	fill: colors.red,
-	style: fonts.title,
-}, Platform.chrono.ofPattern('cccc').toUpperCase()));
-svg.appendChild(SVG.element('text', {
-	x: Platform.width * 0.5 + 3 * delta,
-	y: Platform.height * 0.15,
-	'text-anchor': 'middle',
-	fill: colors.yellow,
-	style: fonts.title,
-}, Platform.chrono.ofPattern('cccc').toUpperCase()));
-svg.appendChild(SVG.element('text', {
-	x: Platform.width * 0.5 + 2 * delta,
-	y: Platform.height * 0.15,
-	'text-anchor': 'middle',
-	fill: colors.blue,
-	style: fonts.title,
-}, Platform.chrono.ofPattern('cccc').toUpperCase()));
-svg.appendChild(SVG.element('text', {
-	x: Platform.width * 0.5 + delta,
-	y: Platform.height * 0.15,
-	'text-anchor': 'middle',
-	fill: colors.green,
-	style: fonts.title,
-}, Platform.chrono.ofPattern('cccc').toUpperCase()));
-svg.appendChild(SVG.element('text', {
-	x: Platform.width * 0.5,
-	y: Platform.height * 0.15,
-	'text-anchor': 'middle',
-	fill: colors.light,
+	fill: delta_colors[i],
 	style: fonts.title,
 }, Platform.chrono.ofPattern('cccc').toUpperCase()));
 
