@@ -41,7 +41,7 @@ public class LocalNetwork
         }
     }
 
-    public String getInetAddresses()
+    public String getInetAddress()
     {
         return inetAddress;
     }
