@@ -83,7 +83,7 @@ const band_colors = [
 	colors.blue,
 	colors.green,
 ];
-for(let i = 2; i > -2; i++)
+for(let i = 2; i > -2; i--)
 	svg.appendChild(SVG.element('rect', {
 		x: 0,
 		y: Platform.height * 0.5 - i * offset,
