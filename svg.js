@@ -266,13 +266,14 @@ const delta_colors = [
 	colors.yellow,
 	colors.red,
 ];
-svg.appendChild(SVG.element('text', {
-	x: Platform.width * 0.5 + i * delta,
-	y: Platform.height * 0.15,
-	'text-anchor': 'middle',
-	fill: delta_colors[i],
-	style: fonts.title,
-}, Platform.chrono.ofPattern('cccc').toUpperCase()));
+for(let i = delta_colors.length - 1; i > -1; i--)
+	svg.appendChild(SVG.element('text', {
+		x: Platform.width * 0.5 + i * delta,
+		y: Platform.height * 0.15,
+		'text-anchor': 'middle',
+		fill: delta_colors[i],
+		style: fonts.title,
+	}, Platform.chrono.ofPattern('cccc').toUpperCase()));
 
 /*
  * Date and time
