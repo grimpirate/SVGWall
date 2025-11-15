@@ -17,7 +17,7 @@ public class LocalNetwork
         {
             for(NetworkInterface networkInterface : Collections.list(NetworkInterface.getNetworkInterfaces()))
             {
-                if(networkInterface.isLoopBack())
+                if(networkInterface.isLoopback())
                     continue;
                 if(!networkInterface.isUp())
                     continue;
