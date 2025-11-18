@@ -27,3 +27,26 @@ Requires a JDK
 
     chmod 0755 disk.sh
     ./disk.sh / svg.js BAT1
+
+### slstatus (config.def.h) for use with dwm
+
+    /* interval between updates (in ms) */
+    const unsigned int interval = 60000;
+    .
+    .
+    .
+    static const struct arg args[] = {
+		/* function format          argument */
+		{ run_command, "", "/home/user/svgwall/scripts/update.sh" },
+		{ cat, " %s", "/sys/class/backlight/backlight/actual_brightness" },
+		{ ram_perc, " %s%%", NULL },
+		{ battery_state, " %s", "sbs-6-000b" },
+	};
+
+### .xinitrc
+
+    #!/bin/sh
+    
+    /home/user/svgwall/scripts/daily.sh &
+    slstatus &
+    exec dwm
