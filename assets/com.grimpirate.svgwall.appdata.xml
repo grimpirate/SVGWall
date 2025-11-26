@@ -38,6 +38,11 @@
 		<internet>always</internet>
 	</supports>
 	<releases>
+		<release version="20251126.1" date="2025-11-26">
+			<description>
+				<p>Platform.network for ip address and interface</p>
+			</description>
+		</release>
 		<release version="20251108.1" date="2025-11-08">
 			<description>
 				<ul>
