@@ -37,7 +37,7 @@ Requires a JDK
     .
     static const struct arg args[] = {
 		/* function format          argument */
-		{ run_command, "", "/home/user/svgwall/scripts/update.sh" },
+		{ run_command, "", "/home/$USER/svgwall/scripts/update.sh" },
 		{ cat, " %s", "/sys/class/backlight/backlight/actual_brightness" },
 		{ ram_perc, " %s%%", NULL },
 		{ battery_state, " %s", "sbs-6-000b" },
