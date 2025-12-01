@@ -47,6 +47,6 @@ Requires a JDK
 
     #!/bin/sh
     
-    /home/user/svgwall/scripts/daily.sh &
+    /home/$USER/svgwall/scripts/daily.sh &
     slstatus &
     exec dwm
