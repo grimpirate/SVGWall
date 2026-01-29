@@ -8,7 +8,7 @@ BATIK="$ASSETS/batik-1.19/lib"
 APPDIR="$DIR/svgwall.AppDir"
 USR="$APPDIR/usr"
 LIBS="
-rhino-1.8.0
+rhino-1.9.0
 picocli-4.7.7
 xmlgraphics-commons-2.11
 batik-anim-1.19
@@ -48,13 +48,13 @@ for JAR in $LIBS; do
 done
 
 wget https://github.com/remkop/picocli/releases/download/v4.7.7/picocli-4.7.7.jar -P "$USR/lib"
-wget https://repo1.maven.org/maven2/org/mozilla/rhino/1.8.0/rhino-1.8.0.jar -P "$USR/lib"
+wget https://repo1.maven.org/maven2/org/mozilla/rhino/1.9.0/rhino-1.9.0.jar -P "$USR/lib"
 
-wget https://download.java.net/java/GA/jdk25/bd75d5f9689641da8e1daabeccb5528b/36/GPL/openjdk-25_linux-x64_bin.tar.gz -P "$ASSETS"
-tar -xzvf "$ASSETS/openjdk-25_linux-x64_bin.tar.gz" -C "$ASSETS"
+wget https://download.java.net/java/GA/jdk25.0.2/b1e0dfa218384cb9959bdcb897162d4e/10/GPL/openjdk-25.0.2_linux-x64_bin.tar.gz -P "$ASSETS"
+tar -xzvf "$ASSETS/openjdk-25.0.2_linux-x64_bin.tar.gz" -C "$ASSETS"
 
 # Compile Java
-"$ASSETS/jdk-25/bin/javac" \
+"$ASSETS/jdk-25.0.2/bin/javac" \
 	-cp "$SRC$CLASSPATH" \
 	-d "$USR/bin" \
 	"$SRC/com/grimpirate/SVGWall.java"
@@ -68,7 +68,7 @@ cc \
 chmod 0755 "$USR/bin/x11root"
 
 # Embedded JRE
-"$ASSETS/jdk-25/bin/jlink" \
+"$ASSETS/jdk-25.0.2/bin/jlink" \
 	--no-header-files \
 	--no-man-pages \
 	--strip-debug \

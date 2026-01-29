@@ -2,7 +2,7 @@
 
 DIR="$(dirname "$(readlink -f "${0}")")"
 LIBS="
-rhino-1.8.0
+rhino-1.9.0
 picocli-4.7.7
 xmlgraphics-commons-2.11
 batik-anim-1.19
