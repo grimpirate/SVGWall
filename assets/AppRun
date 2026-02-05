@@ -30,6 +30,7 @@ for JAR in $LIBS; do
 done
 
 exec "$DIR/jre/bin/svgwall" \
+	-XX:+SuppressFatalErrorMessage \
 	-Dawt.useSystemAAFontSettings=on \
 	-Dswing.aatext=true \
 	-Dfile.encoding=UTF-8 \
