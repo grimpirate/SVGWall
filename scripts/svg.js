@@ -100,7 +100,7 @@ for(let i = 2; i > -2; i--)
 const image = SVG.element('image', {
 	width: Platform.width,
 	height: Platform.height,
-	preserveAspectRation: 'xMidYMid slice',
+	preserveAspectRatio: 'xMidYMid slice',
 });
 image.setAttributeNS('http://www.w3.org/1999/xlink', 'href', 'https://raw.githubusercontent.com/ItsTerm1n4l/Wallpapers-old-archive/refs/heads/main/Fantasy/Small-memory-sunrise.jpg');
 svg.appendChild(image);
