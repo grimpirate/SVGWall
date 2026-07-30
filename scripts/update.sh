@@ -1,10 +1,11 @@
 #!/bin/sh
 
 DIR="$(dirname "$(readlink -f "${0}")")"
-"$DIR/disk.sh" / "$DIR/svg.js" sbs-6-000b
-"$DIR/../SVGWall-aarch64.AppImage" -j="$DIR/svg.js"
+"$DIR/disk.sh" / "$DIR/svg.js" BAT0
+"$DIR/../SVGWall-"*".AppImage" -j="$DIR/svg.js"
 BRIGHT=$("$DIR/brightness.sh")
 MEM=$("$DIR/memory.sh")
-BATT=$("$DIR/battery.sh" "sbs-6-000b")
+BATT=$("$DIR/battery.sh" BAT0)
 
 echo "$BRIGHT$MEM$BATT"
+exit 0
