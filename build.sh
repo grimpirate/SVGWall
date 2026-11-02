@@ -53,10 +53,10 @@ for JAR in $LIBS; do
 	mv "$LOGGING/$JAR.jar" "$USR/lib"
 done
 
-chmod 0644 -R "$USR/lib"
-
 wget https://github.com/remkop/picocli/releases/download/v4.7.7/picocli-4.7.7.jar -P "$USR/lib"
 wget https://repo1.maven.org/maven2/org/mozilla/rhino/1.9.2/rhino-1.9.2.jar -P "$USR/lib"
+
+chmod 0644 -R "$USR/lib"
 
 wget https://download.java.net/java/GA/jdk27.0.1.0.3/b14170c9b2de463d9b89442c6db3e384/1/GPL/openjdk-27.0.1.0.3_linux-x64_bin.tar.gz -P "$ASSETS"
 tar -xzvf "$ASSETS/openjdk-27.0.1.0.3_linux-x64_bin.tar.gz" -C "$ASSETS"
