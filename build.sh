@@ -54,7 +54,7 @@ wget https://download.java.net/java/GA/jdk27.0.1.0.3/b14170c9b2de463d9b89442c6db
 tar -xzvf "$ASSETS/openjdk-27.0.1.0.3_linux-x64_bin.tar.gz" -C "$ASSETS"
 
 # Compile Java
-"$ASSETS/openjdk-27.0.1.0.3/bin/javac" \
+"$ASSETS/jdk-27.0.1.0.3/bin/javac" \
 	-cp "$SRC$CLASSPATH" \
 	-d "$USR/bin" \
 	"$SRC/com/grimpirate/SVGWall.java"
@@ -69,7 +69,7 @@ tar -xzvf "$ASSETS/openjdk-27.0.1.0.3_linux-x64_bin.tar.gz" -C "$ASSETS"
 #chmod 0755 "$USR/bin/x11root"
 
 # Embedded JRE
-"$ASSETS/openjdk-27.0.1.0.3/bin/jlink" \
+"$ASSETS/jdk-27.0.1.0.3/bin/jlink" \
 	--no-header-files \
 	--no-man-pages \
 	--strip-debug \
