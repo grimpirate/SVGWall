@@ -53,6 +53,8 @@ for JAR in $LIBS; do
 	mv "$LOGGING/$JAR.jar" "$USR/lib"
 done
 
+chmod 0644 -R "$USR/lib"
+
 wget https://github.com/remkop/picocli/releases/download/v4.7.7/picocli-4.7.7.jar -P "$USR/lib"
 wget https://repo1.maven.org/maven2/org/mozilla/rhino/1.9.2/rhino-1.9.2.jar -P "$USR/lib"
 
