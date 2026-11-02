@@ -1,3 +1,5 @@
+package com.grimpirate;
+
 import java.io.IOException;
 import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
