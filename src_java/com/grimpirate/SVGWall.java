@@ -33,12 +33,6 @@ public class SVGWall {
 
 		BufferedImageTranscoder transcoder = new BufferedImageTranscoder(script.getDocument(), dimension.width, dimension.height);
 
-		File pipe = result.matchedOptionValue("--pipe", null);
-		ProcessBuilder builder = new ProcessBuilder(URLDecoder.decode(pipe.getAbsolutePath(), StandardCharsets.UTF_8.name()));
-		Process process = builder.start();
-		OutputStream stream = process.getOutputStream();
-		stream.write(transcoder.getImageData());
-		stream.flush();
-		stream.close();
+		(new X11WallpaperManager())->setWallpaper(transcoder.getImageData());
 	}
 }

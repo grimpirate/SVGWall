@@ -4,28 +4,28 @@ DIR="$(dirname "$(readlink -f "${0}")")"
 JNIX11="$DIR/src_c"
 SRC="$DIR/src_java"
 ASSETS="$DIR/assets"
-BATIK="$ASSETS/batik-1.19/lib"
+BATIK="$ASSETS/batik-1.20/lib"
 APPDIR="$DIR/svgwall.AppDir"
 USR="$APPDIR/usr"
 LIBS="
-rhino-1.9.0
+rhino-1.9.2
 picocli-4.7.7
-xmlgraphics-commons-2.11
-batik-anim-1.19
-batik-bridge-1.19
-batik-css-1.19
-batik-dom-1.19
-batik-gvt-1.19
-batik-transcoder-1.19
-batik-util-1.19
-batik-i18n-1.19
-batik-svg-dom-1.19
-batik-constants-1.19
-batik-ext-1.19
-batik-xml-1.19
-batik-parser-1.19
-batik-script-1.19
-batik-awt-util-1.19
+xmlgraphics-commons-2.12
+batik-anim-1.20
+batik-bridge-1.20
+batik-css-1.20
+batik-dom-1.20
+batik-gvt-1.20
+batik-transcoder-1.20
+batik-util-1.20
+batik-i18n-1.20
+batik-svg-dom-1.20
+batik-constants-1.20
+batik-ext-1.20
+batik-xml-1.20
+batik-parser-1.20
+batik-script-1.20
+batik-awt-util-1.20
 xml-apis-ext-1.3.04
 "
 
@@ -39,8 +39,8 @@ mkdir -p "$USR/share/icons/hicolor/256x256/apps"
 mkdir -p "$USR/share/icons/hicolor/scalable/apps"
 
 # Needed lib(s)
-wget https://archive.apache.org/dist/xmlgraphics/batik/binaries/batik-bin-1.19.tar.gz -P "$ASSETS"
-tar -xzvf "$ASSETS/batik-bin-1.19.tar.gz" -C "$ASSETS"
+wget https://archive.apache.org/dist/xmlgraphics/batik/binaries/batik-bin-1.20.tar.gz -P "$ASSETS"
+tar -xzvf "$ASSETS/batik-bin-1.20.tar.gz" -C "$ASSETS"
 
 for JAR in $LIBS; do
 	CLASSPATH="$CLASSPATH:$USR/lib/$JAR.jar"
@@ -48,27 +48,28 @@ for JAR in $LIBS; do
 done
 
 wget https://github.com/remkop/picocli/releases/download/v4.7.7/picocli-4.7.7.jar -P "$USR/lib"
-wget https://repo1.maven.org/maven2/org/mozilla/rhino/1.9.0/rhino-1.9.0.jar -P "$USR/lib"
+wget https://repo1.maven.org/maven2/org/mozilla/rhino/1.9.2/rhino-1.9.2.jar -P "$USR/lib"
 
-wget https://download.java.net/java/GA/jdk25.0.2/b1e0dfa218384cb9959bdcb897162d4e/10/GPL/openjdk-25.0.2_linux-x64_bin.tar.gz -P "$ASSETS"
-tar -xzvf "$ASSETS/openjdk-25.0.2_linux-x64_bin.tar.gz" -C "$ASSETS"
+wget https://download.java.net/java/GA/jdk27.0.1.0.3/b14170c9b2de463d9b89442c6db3e384/1/GPL/openjdk-27.0.1.0.3_linux-x64_bin.tar.gz -P "$ASSETS"
+tar -xzvf "$ASSETS/openjdk-27.0.1.0.3_linux-x64_bin.tar.gz" -C "$ASSETS"
 
 # Compile Java
-"$ASSETS/jdk-25.0.2/bin/javac" \
+"$ASSETS/openjdk-27.0.1.0.3/bin/javac" \
 	-cp "$SRC$CLASSPATH" \
 	-d "$USR/bin" \
 	"$SRC/com/grimpirate/SVGWall.java"
 
+# Superseded by Java FFM X11WallpaperManager
 # Compile Position Independent Executable
-cc \
-	-fPIE \
-	-o "$USR/bin/x11root" \
-	"$JNIX11/x11root.c" \
-	-lX11
-chmod 0755 "$USR/bin/x11root"
+#cc \
+#	-fPIE \
+#	-o "$USR/bin/x11root" \
+#	"$JNIX11/x11root.c" \
+#	-lX11
+#chmod 0755 "$USR/bin/x11root"
 
 # Embedded JRE
-"$ASSETS/jdk-25.0.2/bin/jlink" \
+"$ASSETS/openjdk-27.0.1.0.3/bin/jlink" \
 	--no-header-files \
 	--no-man-pages \
 	--strip-debug \

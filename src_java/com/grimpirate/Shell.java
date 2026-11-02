@@ -105,13 +105,6 @@ public class Shell
 		CommandSpec spec = CommandSpec.create();
 		spec.name(SVGWall.APP_NAME);
 		spec.mixinStandardHelpOptions(true);
-		spec.addOption(OptionSpec.builder("-p", "--pipe")
-				.required(true)
-				.hidden(true)
-				.paramLabel("FILE")
-				.type(File.class)
-				.description("Pipe location")
-				.build());
 		spec.addOption(OptionSpec.builder("-m", "--meta")
 				.required(true)
 				.hidden(true)
