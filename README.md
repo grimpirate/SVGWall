@@ -12,11 +12,10 @@ SVG Wallpaper Utility for Xorg
 ![Screenshot](https://raw.githubusercontent.com/grimpirate/SVGWall/main/screenshot.png "SVGWall")
 
 ### Compile & Package from source
-Requires a JDK
 
     git clone https://github.com/grimpirate/SVGWall
     cd SVGWall
-    chmod 0755 build.sh
+    chmod +x build.sh
     ./build.sh
 
 ### Get latest release
@@ -25,7 +24,7 @@ Requires a JDK
 
 ### Dynamic Gauge Demo
 
-    chmod 0755 disk.sh
+    chmod +x disk.sh
     ./disk.sh / svg.js BAT1
 
 ### slstatus (config.def.h) for use with dwm
