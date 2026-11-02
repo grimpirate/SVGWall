@@ -102,6 +102,8 @@ chmod 0755 "$USR/bin/appimageupdatetool-x86_64.AppImage"
 wget  https://github.com/AppImage/appimagetool/releases/latest/download/appimagetool-x86_64.AppImage -P "$ASSETS"
 chmod 0755 "$ASSETS/appimagetool-x86_64.AppImage"
 
+chmod -R a+rX "$APPDIR"
+
 # Package AppImage
 "$ASSETS/appimagetool-x86_64.AppImage" --appimage-extract-and-run "$APPDIR" -u "gh-releases-zsync|grimpirate|SVGWall|latest|SVGWall-*x86_64.AppImage.zsync"
 
