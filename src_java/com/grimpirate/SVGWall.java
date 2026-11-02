@@ -33,6 +33,6 @@ public class SVGWall {
 
 		BufferedImageTranscoder transcoder = new BufferedImageTranscoder(script.getDocument(), dimension.width, dimension.height);
 
-		(new X11WallpaperManager())->setWallpaper(transcoder.getImageData());
+		(new X11WallpaperManager()).setWallpaper(transcoder.getImageData());
 	}
 }
