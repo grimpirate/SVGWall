@@ -2,6 +2,7 @@
 
 DIR="$(dirname "$(readlink -f "${0}")")"
 LIBS="
+commons-logging-1.4.0
 rhino-1.9.2
 picocli-4.7.7
 xmlgraphics-commons-2.12

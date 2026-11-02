@@ -5,9 +5,11 @@ JNIX11="$DIR/src_c"
 SRC="$DIR/src_java"
 ASSETS="$DIR/assets"
 BATIK="$ASSETS/batik-1.20/lib"
+LOGGING="$ASSETS/commons-logging-1.4.0"
 APPDIR="$DIR/svgwall.AppDir"
 USR="$APPDIR/usr"
 LIBS="
+commons-logging-1.4.0
 rhino-1.9.2
 picocli-4.7.7
 xmlgraphics-commons-2.12
@@ -42,9 +44,13 @@ mkdir -p "$USR/share/icons/hicolor/scalable/apps"
 wget https://archive.apache.org/dist/xmlgraphics/batik/binaries/batik-bin-1.20.tar.gz -P "$ASSETS"
 tar -xzvf "$ASSETS/batik-bin-1.20.tar.gz" -C "$ASSETS"
 
+wget https://dlcdn.apache.org//commons/logging/binaries/commons-logging-1.4.0-bin.tar.gz -P "$ASSETS"
+tar -xzvf "$ASSETS/commons-logging-1.4.0-bin.tar.gz" -C "$ASSETS"
+
 for JAR in $LIBS; do
 	CLASSPATH="$CLASSPATH:$USR/lib/$JAR.jar"
 	mv "$BATIK/$JAR.jar" "$USR/lib"
+	mv "$LOGGING/$JAR.jar" "$USR/lib"
 done
 
 wget https://github.com/remkop/picocli/releases/download/v4.7.7/picocli-4.7.7.jar -P "$USR/lib"
