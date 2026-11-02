@@ -95,7 +95,7 @@ wget  https://github.com/AppImage/appimagetool/releases/latest/download/appimage
 chmod 0755 "$ASSETS/appimagetool-x86_64.AppImage"
 
 # Package AppImage
-"$ASSETS/appimagetool-x86_64.AppImage" "$APPDIR" -u "gh-releases-zsync|grimpirate|SVGWall|latest|SVGWall-*x86_64.AppImage.zsync"
+"$ASSETS/appimagetool-x86_64.AppImage" --appimage-extract-and-run "$APPDIR" -u "gh-releases-zsync|grimpirate|SVGWall|latest|SVGWall-*x86_64.AppImage.zsync"
 
 # Cleanup
 rm -rf "$APPDIR" "$ASSETS" "$JNIX11" "$SRC" screenshot.png README.md LICENSE build.sh
