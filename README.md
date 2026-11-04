@@ -36,7 +36,7 @@ SVG Wallpaper Utility for Xorg
     .
     static const struct arg args[] = {
 		/* function format          argument */
-		{ run_command, "", "/home/$USER/svgwall/scripts/update.sh" },
+		{ run_command, "%s", "$HOME/svgwall/scripts/update.sh" },
 	};
 
 ### .xinitrc
