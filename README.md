@@ -46,6 +46,6 @@ SVG Wallpaper Utility for Xorg
 
     #!/bin/sh
     
-    /home/$USER/svgwall/scripts/daily.sh &
+    $HOME/svgwall/scripts/daily.sh &
     slstatus &
     exec dwm
