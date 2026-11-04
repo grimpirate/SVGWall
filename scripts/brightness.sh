@@ -8,7 +8,7 @@ for path in $d; do
 		curr=$(cat "$path/actual_brightness")
 		max=$(cat "$path/max_brightness")
 		percent=$(( curr * 100 / max ))
-		echo "  ${percent}%"
+		echo " ${percent}%"
 		exit 0
 	fi
 done

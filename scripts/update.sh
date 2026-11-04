@@ -7,5 +7,10 @@ BRIGHT=$("$DIR/brightness.sh")
 MEM=$("$DIR/memory.sh")
 BATT=$("$DIR/battery.sh" BAT0)
 
-echo "$BRIGHT$MEM$BATT"
+TRIM="$BRIGHT $MEM $BATT"
+TRIM="${TRIM#"${TRIM%%[![:space:]]*}"}"
+TRIM="${TRIM%"${TRIM##*[![:space:]]}"}"
+
+echo " $TRIM "
+
 exit 0

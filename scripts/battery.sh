@@ -7,19 +7,19 @@ STATUS=$(if [ -f "$STATUS_PATH" ]; then cat "$STATUS_PATH"; else echo "Unknown";
 
 case "$STATUS" in
 	"Charging")
-	echo " 󱟠"
+	echo "󱟠"
 	;;
 	"Discharging")
-	echo " 󱟞"
+	echo "󱟞"
 	;;
 	"Full")
-	echo " 󱟢"
+	echo "󱟢"
 	;;
 	"Not charging")
-	echo " 󱟨"
+	echo "󱟨"
 	;;
 	*)
-	echo " 󰂑"
+	echo "󰂑"
 	;;
 esac
 exit 0
