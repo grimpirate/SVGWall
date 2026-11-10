@@ -1,34 +1,6 @@
 #!/bin/sh
 
 DIR="$(dirname "$(readlink -f "${0}")")"
-LIBS="
-commons-logging-1.4.0
-rhino-1.9.2
-picocli-4.7.7
-xmlgraphics-commons-2.12
-batik-anim-1.20
-batik-bridge-1.20
-batik-css-1.20
-batik-dom-1.20
-batik-gvt-1.20
-batik-transcoder-1.20
-batik-util-1.20
-batik-i18n-1.20
-batik-svg-dom-1.20
-batik-constants-1.20
-batik-ext-1.20
-batik-xml-1.20
-batik-parser-1.20
-batik-script-1.20
-batik-awt-util-1.20
-xml-apis-ext-1.3.04
-"
-
-CLASSPATH=""
-
-for JAR in $LIBS; do
-	CLASSPATH="$CLASSPATH:$DIR/../lib/$JAR.jar"
-done
 
 exec "$DIR/jre/bin/svgwall" \
 	--enable-native-access=ALL-UNNAMED \
@@ -38,7 +10,7 @@ exec "$DIR/jre/bin/svgwall" \
 	-Dfile.encoding=UTF-8 \
 	-Dstdout.encoding=UTF-8 \
 	-Dstderr.encoding=UTF-8 \
-	-classpath "$DIR$CLASSPATH" \
+	-classpath "$DIR" \
 	com.grimpirate.SVGWall \
 	-m "$DIR/../share/metainfo/com.grimpirate.svgwall.appdata.xml" \
 	"$@"

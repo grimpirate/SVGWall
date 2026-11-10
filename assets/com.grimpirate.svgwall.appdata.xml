@@ -37,6 +37,14 @@
 		<internet>always</internet>
 	</supports>
 	<releases>
+		<release version="20261110.1" date="2026-11-10">
+			<description>
+				<ul>
+					<li>Fat jar created as part of build output</li>
+					<li>AppDir structure changed to use .class rather than .jar</li>
+				</ul>
+			</description>
+		</release>
 		<release version="20261102.1" date="2026-11-02">
 			<description>
 				<p>Java FFM implementation for native functions</p>

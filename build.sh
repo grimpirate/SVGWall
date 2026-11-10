@@ -56,7 +56,9 @@ done
 wget https://github.com/remkop/picocli/releases/download/v4.7.7/picocli-4.7.7.jar -P "$USR/lib"
 wget https://repo1.maven.org/maven2/org/mozilla/rhino/1.9.2/rhino-1.9.2.jar -P "$USR/lib"
 
-chmod 0644 -R "$USR/lib"
+for JAR in $LIBS; do
+	chmod 0644 "$USR/lib/$JAR.jar"
+done
 
 wget https://download.java.net/java/GA/jdk27.0.1.0.3/b14170c9b2de463d9b89442c6db3e384/1/GPL/openjdk-27.0.1.0.3_linux-x64_bin.tar.gz -P "$ASSETS"
 tar -xzvf "$ASSETS/openjdk-27.0.1.0.3_linux-x64_bin.tar.gz" -C "$ASSETS"
@@ -66,6 +68,17 @@ tar -xzvf "$ASSETS/openjdk-27.0.1.0.3_linux-x64_bin.tar.gz" -C "$ASSETS"
 	-cp "$SRC$CLASSPATH" \
 	-d "$USR/bin" \
 	"$SRC/com/grimpirate/SVGWall.java"
+
+for JAR in $LIBS; do
+	"$ASSETS/jdk-27.0.1.0.3/bin/jar" \
+		-xf "$USR/lib/$JAR.jar" \
+		-C "$USR/bin"
+done
+
+"$ASSETS/jdk-27.0.1.0.3/bin/jar" \
+	--create --file SVGWall.jar \
+	--main-class com.grimpirate.SVGWall \
+	-C "$USR/bin" .
 
 # Superseded by Java FFM X11WallpaperManager
 # Compile Position Independent Executable
@@ -87,6 +100,7 @@ rm -rf "$USR/bin/jre/legal" "$USR/bin/jre/release" "$USR/bin/jre/bin/keytool"
 mv "$USR/bin/jre/bin/java" "$USR/bin/jre/bin/svgwall"
 
 # Finalize AppDir
+rm -rf "$USR/lib"
 mv "$ASSETS/AppRun" "$USR/bin"
 chmod 0755 "$USR/bin/AppRun"
 mv "$ASSETS/svgwall.desktop" "$APPDIR"
